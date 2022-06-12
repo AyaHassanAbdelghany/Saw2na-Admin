@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/drawable-anydpi/delete.xml" value="0.1165" />
         <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/item_discount.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
