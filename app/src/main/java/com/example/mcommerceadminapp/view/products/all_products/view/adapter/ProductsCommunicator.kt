@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.products.view.adapter
+package com.example.mcommerceadminapp.view.products.all_products.view.adapter
 
 interface ProductsCommunicator {
     fun setDefaultAddress(addressID:String)

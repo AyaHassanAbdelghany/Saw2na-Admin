@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.products.view.add_product
+package com.example.mcommerceadminapp.view.products.all_products.view.add_product
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

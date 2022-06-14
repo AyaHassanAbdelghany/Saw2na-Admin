@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.products.view_model
+package com.example.mcommerceadminapp.view.products.all_products.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
