@@ -1,10 +1,17 @@
 package com.example.mcommerceadminapp.view.inventory.view
 
+import android.animation.LayoutTransition
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.Transition
 import android.view.View
+import android.view.Window
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.AutoTransition
+import androidx.transition.Explode
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.example.mcommerceadminapp.databinding.ActivityInventoryBinding
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
@@ -38,10 +45,14 @@ class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
 
         viewModel.products.observe(this){
             adapter.setData(it)
+            TransitionManager.beginDelayedTransition( binding.recycleViewInventory, Slide())
             binding.loadingProgressBar.visibility = View.INVISIBLE
+
         }
 
+
         viewModel.getAllProduct()
+
 
     }
 

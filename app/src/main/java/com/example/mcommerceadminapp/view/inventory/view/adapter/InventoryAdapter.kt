@@ -1,10 +1,16 @@
 package com.example.mcommerceadminapp.view.inventory.view.adapter
 
+import android.animation.LayoutTransition
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.AutoTransition
+import androidx.transition.Explode
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.example.mcommerceadminapp.databinding.ItemInventoryBinding
 import com.example.mcommerceadminapp.pojo.products.Products
@@ -43,6 +49,8 @@ class InventoryAdapter (var context: Context, private var listener: InventoryCom
                 holder.binding.inventoryChildRecycleView.adapter = adapter
             else
                 holder.binding.inventoryChildRecycleView.adapter = null
+            TransitionManager.beginDelayedTransition(holder.binding.root, AutoTransition())
+
         }
     }
 
