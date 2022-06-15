@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mcommerceadminapp">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceAdminApp">
         <activity
-            android:name=".InventoryActivity"
+            android:name=".view.inventory.InventoryActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.mcommerceadminapp.view.products.all_products.view.add_product.AddNewProductActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

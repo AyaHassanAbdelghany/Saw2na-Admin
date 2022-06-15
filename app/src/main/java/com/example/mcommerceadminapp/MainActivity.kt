@@ -1,5 +1,6 @@
 package com.example.mcommerceadminapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSour
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModel
 import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModelFactory
+import com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +36,10 @@ class MainActivity : AppCompatActivity() {
         binding.discountsBtn.setOnClickListener(){
             couponVM.getAllPriceRules()
 
+        }
+
+        binding.productsBtn.setOnClickListener {
+            startActivity(Intent(this,ProductsActivity::class.java))
         }
 
     }
