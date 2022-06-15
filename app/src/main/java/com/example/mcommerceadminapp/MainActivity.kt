@@ -10,6 +10,7 @@ import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSour
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModel
 import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModelFactory
+import com.example.mcommerceadminapp.view.inventory.view.InventoryActivity
 import com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.productsBtn.setOnClickListener {
             startActivity(Intent(this,ProductsActivity::class.java))
+        }
+
+        binding.investoryBtn.setOnClickListener {
+            startActivity(Intent(this, InventoryActivity::class.java))
         }
 
     }

@@ -6,17 +6,11 @@
         <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/drawable-anydpi/delete.xml" value="0.1165" />
         <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/item_discount.xml" value="0.20416666666666666" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/drawable-v24/card_border.xml" value="0.1335" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/drawable/card_border.xml" value="0.121" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/drawable/card_border_colored.xml" value="0.121" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/activity_add_new_product.xml" value="0.25" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/activity_product_detail.xml" value="0.1" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/activity_products.xml" value="0.264" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/card_review.xml" value="0.25" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/card_size.xml" value="0.25" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/content_scrolling.xml" value="0.21477162293488825" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/detail_btn.xml" value="0.25" />
-        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_products.xml" value="0.1282051282051282" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/activity_inventory.xml" value="0.25" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/activity_products.xml" value="0.25" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_inventory.xml" value="0.20427350427350427" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_inventory_child.xml" value="0.24895833333333334" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_products.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -11,4 +11,6 @@
     <string name="desc">Desc</string>
     <string name="color">Color</string>
     <string name="size">Size</string>
+    <string name="inventory">Inventory</string>
+    <string name="variants">Variants</string>
 </resources>

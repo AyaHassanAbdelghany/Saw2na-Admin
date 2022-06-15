@@ -1,20 +1,21 @@
-package com.example.mcommerceadminapp.view.products.all_products.view.adapter
+package com.example.mcommerceadminapp.view.inventory.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mcommerceadminapp.databinding.ItemProductsBinding
+import com.example.mcommerceadminapp.databinding.ItemInventoryBinding
 import com.example.mcommerceadminapp.pojo.products.Products
 
 
-class ProductsAdapter(var context: Context, private var listener: ProductsCommunicator) :
-    RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class InventoryAdapter (var context: Context, private var listener: InventoryCommunicator) :
+    RecyclerView.Adapter<InventoryAdapter.ViewHolder>() {
     private var productsList: ArrayList<Products> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemProductsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemInventoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -30,13 +31,18 @@ class ProductsAdapter(var context: Context, private var listener: ProductsCommun
                 .into(productImageView)
         }
 
-        holder.binding.deleteAddress.setOnClickListener {
-            listener.deleteProduct(currentItem.id.toString())
-            productsList.remove(currentItem)
-            notifyDataSetChanged()
-        }
-        holder.itemView.setOnClickListener {
+        val llm = LinearLayoutManager(context)
+        val adapter = InventoryChildAdapter(context,listener)
+        llm.orientation = LinearLayoutManager.VERTICAL
+        holder.binding.inventoryChildRecycleView.layoutManager = llm
+        adapter.setData(currentItem)
 
+
+        holder.itemView.setOnClickListener {
+            if (holder.binding.inventoryChildRecycleView.adapter == null )
+                holder.binding.inventoryChildRecycleView.adapter = adapter
+            else
+                holder.binding.inventoryChildRecycleView.adapter = null
         }
     }
 
@@ -49,6 +55,6 @@ class ProductsAdapter(var context: Context, private var listener: ProductsCommun
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val binding: ItemProductsBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemInventoryBinding) : RecyclerView.ViewHolder(binding.root)
 
 }
