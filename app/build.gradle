@@ -49,6 +49,9 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
 
+    //CircleIndicator
+    implementation 'me.relex:circleindicator:2.1.6'
+
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -66,4 +69,8 @@ dependencies {
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    //expanded TextView
+    implementation 'com.ms-square:expandableTextView:0.1.4'
+    implementation 'kr.co.prnd:readmore-textview:1.0.0'
+
 }

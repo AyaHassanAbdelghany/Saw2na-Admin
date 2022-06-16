@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.products.view
+package com.example.mcommerceadminapp.view.products.all_products.view
 
 import android.content.Intent
 import android.os.Build
@@ -10,11 +10,11 @@ import com.example.mcommerceadminapp.databinding.ActivityProductsBinding
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
 import com.example.mcommerceadminapp.pojo.products.Products
-import com.example.mcommerceadminapp.view.products.view.adapter.ProductsAdapter
-import com.example.mcommerceadminapp.view.products.view.adapter.ProductsCommunicator
-import com.example.mcommerceadminapp.view.products.view.add_product.AddNewProductActivity
-import com.example.mcommerceadminapp.view.products.view_model.ProductsViewModel
-import com.example.mcommerceadminapp.view.products.view_model.factory.ProductsViewModelFactory
+import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsAdapter
+import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsCommunicator
+import com.example.mcommerceadminapp.view.products.all_products.view.add_product.AddNewProductActivity
+import com.example.mcommerceadminapp.view.products.all_products.view_model.ProductsViewModel
+import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
 
 class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
     private lateinit var binding : ActivityProductsBinding

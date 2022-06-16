@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceAdminApp">
         <activity
-            android:name=".view.products.view.add_product.AddNewProductActivity"
+            android:name="com.example.mcommerceadminapp.view.products.all_products.view.add_product.AddNewProductActivity"
             android:exported="false" />
         <activity
-            android:name=".view.products.view.ProductsActivity"
+            android:name="com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
