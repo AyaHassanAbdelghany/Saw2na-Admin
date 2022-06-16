@@ -1,6 +1,7 @@
 package com.example.mcommerceadminapp.view.products.view
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,6 +19,8 @@ import com.example.mcommerceadminapp.view.products.view_model.factory.ProductsVi
 class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
     private lateinit var binding : ActivityProductsBinding
     private lateinit var viewModel:ProductsViewModel
+    val REQUEST_CODE = 200
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductsBinding.inflate(layoutInflater)
@@ -71,4 +74,5 @@ class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
     override fun deleteProduct(productID: String) {
         viewModel.deleteProductByID(productID)
     }
+
 }
