@@ -16,41 +16,21 @@ import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModel
 import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModelFactory
 import com.example.mcommerceadminapp.view.inventory.view.InventoryActivity
 import com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity
+import com.example.mcommerceadminapp.view.Coupon.view.PriceRuleActivity
 
 class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var couponVM: CouponViewModel
-    private lateinit var couponVMFactory: CouponViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        with(window) {
-            requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-
-            // set an exit transition
-         //      exitTransition = Explode()
-
-
-        }
-
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        couponVMFactory = CouponViewModelFactory(
-            CouponRepo.getInstance(CouponRemoteSource()),
-        )
-        couponVM = ViewModelProvider(this, couponVMFactory)[CouponViewModel::class.java]
-
-        couponVM.allPriceRules.observe(this){
-            Log.e("res",it.toString())
-        }
-        binding.discountsBtn.setOnClickListener(){
-            couponVM.getAllPriceRules()
-
+        binding.discountsBtn.setOnClickListener{
+            startActivity(Intent(this, PriceRuleActivity::class.java))
         }
 
         binding.productsBtn.setOnClickListener {

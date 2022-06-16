@@ -32,10 +32,10 @@ interface CouponService {
         "X-Shopify-Access-Token: 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",
         "Content-Type: application/json"
     )
-    @PUT("{resource}/{priceRule}.json")
+    @PUT("{resource}/{priceRuleId}.json")
     suspend fun updatePriceRule(
         @Path("resource", encoded = true) resources: String,
-        @Path("priceRule", encoded = true) priceRule: String,
+        @Path("priceRuleId", encoded = true) priceRule: String,
         @Body requestBody: RequestBody): Response<JsonObject>
     ///////////
 
@@ -49,4 +49,45 @@ interface CouponService {
         @Path("priceRuleId", encoded = true) priceRuleId: String,
 
         ): Response<JsonObject>
+    //////
+
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @GET("{priceRule}/{priceRuleId}/{resource}")
+    suspend fun getAllDiscountCode(
+        @Path("priceRule", encoded = true) orderID: String,
+        @Path("priceRuleId", encoded = true) priceRuleId: String,
+        @Path("resource", encoded = true) resource: String
+
+        ): Response<JsonObject>
+    ////////
+
+    @Headers(
+    "X-Shopify-Access-Token: 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",
+    "Content-Type: application/json"
+  )
+  @DELETE("{priceRule}/{priceRuleId}/{discountCode}/{discountCodeId}.json")
+   suspend fun deleteDiscountCodeId(
+    @Path("priceRule", encoded = true) priceRule: String,
+    @Path("priceRuleId", encoded = true) priceRuleId: String,
+    @Path("discountCode", encoded = true) discountCode: String,
+    @Path("discountCodeId", encoded = true) discountCodeId: String,
+
+    ): Response<JsonObject>
+
+
+/////////////
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @POST("{priceRule}/{priceRuleId}/{discountCode}")
+    suspend fun createDiscountCode(
+        @Path("priceRule", encoded = true) priceRule: String,
+        @Path("priceRuleId", encoded = true) priceRuleId: String,
+        @Path("discountCode", encoded = true) discountCode: String,
+        @Body requestBody: RequestBody): Response<JsonObject>
+
 }
