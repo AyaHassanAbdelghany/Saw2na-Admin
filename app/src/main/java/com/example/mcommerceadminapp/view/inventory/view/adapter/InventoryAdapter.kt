@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.AutoTransition
-import androidx.transition.Explode
-import androidx.transition.Slide
-import androidx.transition.TransitionManager
+import androidx.transition.*
 import com.bumptech.glide.Glide
 import com.example.mcommerceadminapp.databinding.ItemInventoryBinding
 import com.example.mcommerceadminapp.pojo.products.Products
@@ -22,6 +19,7 @@ class InventoryAdapter (var context: Context, private var listener: InventoryCom
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemInventoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return ViewHolder(binding)
     }
 

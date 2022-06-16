@@ -11,9 +11,9 @@ import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemote
 import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
 import com.example.mcommerceadminapp.pojo.products.Variants
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
-import com.example.mcommerceapp.view.ui.product_detail.adapter.ColorAdapter
+import com.example.mcommerceadminapp.view.products.product_detail.adapter.ColorAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
-import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
+import com.example.mcommerceadminapp.view.products.product_detail.adapter.SizeAdapter
 import com.example.mcommerceadminapp.view.products.product_detail.viewmodel.ProductDetailVM
 import com.example.mcommerceadminapp.view.products.product_detail.viewmodelfactory.ProductDetailVMFactory
 

@@ -8,8 +8,8 @@ import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import com.example.mcommerceapp.R
-import com.example.mcommerceapp.pojo.products.Images
+import com.example.mcommerceadminapp.R
+import com.example.mcommerceadminapp.pojo.products.Images
 
 class ImageSlideAdapter(private val context: Context, private var imageList: List<Images>) : PagerAdapter() {
     override fun getCount(): Int {
@@ -22,8 +22,8 @@ class ImageSlideAdapter(private val context: Context, private var imageList: Lis
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view: View =  (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-            .inflate(R.layout.card_image, null)
-        val ivImages = view.findViewById<ImageView>(R.id.iv_images)
+            .inflate(R.layout.activity_main, null)
+        val ivImages = view.findViewById<ImageView>(R.id.card1)
 
         imageList[position].let {
             Glide.with(context)
