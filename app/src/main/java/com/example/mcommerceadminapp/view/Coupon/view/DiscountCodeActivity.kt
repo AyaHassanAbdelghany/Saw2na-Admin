@@ -90,7 +90,7 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
     }
 
     override fun onClick(id: String?,type:String) {
-        discountCodeVM.deleteDiscountCodeID(id.toString(),this.idIntent)
+        discountCodeVM.deleteDiscountCodeID(this.idIntent , id.toString())
     }
 
     override fun onClickEdit(priceRule: PriceRules, type: String) {

@@ -48,6 +48,7 @@ class CouponRepo private  constructor(private var iCouponRemoteSource : ICoupon)
 
     ////////////
     override suspend fun getAllDiscountCode(priceRuleID:String) {
+        allDiscountCode.postValue(ArrayList())
         allDiscountCode.postValue(iCouponRemoteSource.getAllDiscountCode(priceRuleID))
     }
 
