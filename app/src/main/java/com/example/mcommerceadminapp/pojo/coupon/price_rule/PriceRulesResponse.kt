@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.pojo.coupon
+package com.example.mcommerceadminapp.pojo.coupon.price_rule
 
 import com.google.gson.annotations.SerializedName
 
