@@ -32,7 +32,6 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
                 val spf = SimpleDateFormat("yyyy-MM-dd")
                 startDate = spf.format(spf.parse(intent.getStringExtra("startAt")))
                 val date = startDate.split("-")
-
                 today.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
 
             }
@@ -73,7 +72,7 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
 
                         val intent = Intent()
                         intent.putExtra("title", binding.titleText.text.toString())
-                        intent.putExtra("value", binding.valueText.text.toString())
+                        intent.putExtra("value", "-"+binding.valueText.text.toString())
                         intent.putExtra("usageLimit", binding.usageLimitText.text.toString())
                         intent.putExtra("startAt", startDate)
                         setResult(1, intent)

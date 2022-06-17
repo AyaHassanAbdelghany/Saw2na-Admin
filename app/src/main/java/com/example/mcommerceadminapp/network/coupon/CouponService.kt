@@ -44,7 +44,7 @@ interface CouponService {
         "Content-Type: application/json"
     )
     @DELETE("{resource}/{priceRuleId}.json")
-    suspend fun deletePriceRuleId(
+    suspend fun deletePriceRule(
         @Path("resource", encoded = true) orderID: String,
         @Path("priceRuleId", encoded = true) priceRuleId: String,
 
@@ -69,7 +69,7 @@ interface CouponService {
     "Content-Type: application/json"
   )
   @DELETE("{priceRule}/{priceRuleId}/{discountCode}/{discountCodeId}.json")
-   suspend fun deleteDiscountCodeId(
+   suspend fun deleteDiscountCode(
     @Path("priceRule", encoded = true) priceRule: String,
     @Path("priceRuleId", encoded = true) priceRuleId: String,
     @Path("discountCode", encoded = true) discountCode: String,
@@ -88,6 +88,19 @@ interface CouponService {
         @Path("priceRule", encoded = true) priceRule: String,
         @Path("priceRuleId", encoded = true) priceRuleId: String,
         @Path("discountCode", encoded = true) discountCode: String,
+        @Body requestBody: RequestBody): Response<JsonObject>
+
+    //////////////
+    @Headers(
+        "X-Shopify-Access-Token: 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",
+        "Content-Type: application/json"
+    )
+    @PUT("{priceRule}/{priceRuleId}/{discountCode}/{discountCodeId}.json")
+    suspend fun updateDiscountCode(
+        @Path("priceRule", encoded = true) priceRule: String,
+        @Path("priceRuleId", encoded = true) priceRuleId: String,
+        @Path("discountCode", encoded = true) discountCode: String,
+        @Path("discountCodeId", encoded = true) discountCodeId: String,
         @Body requestBody: RequestBody): Response<JsonObject>
 
 }

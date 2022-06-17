@@ -93,7 +93,10 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
         discountCodeVM.deleteDiscountCodeID(this.idIntent , id.toString())
     }
 
-    override fun onClickEdit(priceRule: PriceRules, type: String) {
+    override fun <T> onClickEdit(typeObject: T, type: String) {
+        val discountCode = typeObject as DiscountCodes
+        discountCodeVM.updateDiscountCode(this.idIntent, discountCode.id.toString(),discountCode)
 
     }
+
 }

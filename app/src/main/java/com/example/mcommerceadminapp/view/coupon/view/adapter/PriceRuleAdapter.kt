@@ -2,12 +2,16 @@ package com.example.mcommerceadminapp.view.coupon.view.adapter
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceadminapp.databinding.ItemPriceRuleBinding
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PriceRuleAdapter ( var listner : OnClickListner) : RecyclerView.Adapter<PriceRuleAdapter.ViewHolder>(){
     var priceRuleList: ArrayList<PriceRules> = arrayListOf()
@@ -25,7 +29,9 @@ class PriceRuleAdapter ( var listner : OnClickListner) : RecyclerView.Adapter<Pr
             titlePriceRuleText.text = currentItem.title
             limitPriceRuleText.text = currentItem.usageLimit
             valuePriceRuleText.text = currentItem.value
-            startDateText.text = currentItem.startsAt
+            val spf = SimpleDateFormat("yyyy-MM-dd")
+           val startDate = spf.format(spf.parse(currentItem.startsAt))
+           startDateText.text = startDate
 
         }
         holder.binding.cardPriceRule.setOnClickListener {

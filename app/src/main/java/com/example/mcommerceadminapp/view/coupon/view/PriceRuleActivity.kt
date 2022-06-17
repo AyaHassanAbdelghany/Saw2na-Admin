@@ -92,9 +92,9 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
 
     }
 
-    override fun onClickEdit(priceRule: PriceRules, type: String) {
-
+    override fun <T> onClickEdit(typeObject: T, type: String) {
         val intent = Intent(this,AddEditPriceRuleActivity::class.java)
+        val priceRule = typeObject as PriceRules
         intent.putExtra("TYPE",type)
         intent.putExtra("title",priceRule.title)
         intent.putExtra("value",priceRule.value)
@@ -102,5 +102,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         intent.putExtra("startAt",priceRule.startsAt)
         intent.putExtra("id",priceRule.id)
         startActivityForResult(intent,2)
-        }
+    }
 }
+
+

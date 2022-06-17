@@ -15,6 +15,8 @@ interface ICoupon {
      suspend fun getAllDiscountCode(priceRuleID:String) : ArrayList<DiscountCodes>
     suspend fun deleteDiscountCodeID(priceRuleID:String ,discountCodeID: String)
     suspend fun createDiscountCode(priceRuleId :String ,req: RequestBody) :DiscountCodes
+    suspend fun updateDiscountCode(priceRuleID: String,discountCodeID: String, req :RequestBody)
+
 
 
 }
