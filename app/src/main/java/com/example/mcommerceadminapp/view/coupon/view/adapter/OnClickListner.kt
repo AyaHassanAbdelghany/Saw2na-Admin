@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.Coupon.view.adapter
+package com.example.mcommerceadminapp.view.coupon.view.adapter
 
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 

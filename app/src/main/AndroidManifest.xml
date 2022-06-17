@@ -10,9 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceAdminApp">
-        <activity android:name=".view.Coupon.view.PriceRuleActivity"></activity>
-        <activity android:name=".view.Coupon.view.DiscountCodeActivity"></activity>
-        <activity android:name=".view.Coupon.view.AddEditPriceRuleActivity"></activity>
+        <activity android:name=".view.coupon.view.PriceRuleActivity"></activity>
+        <activity android:name=".view.coupon.view.DiscountCodeActivity"></activity>
+        <activity android:name=".view.coupon.view.AddEditPriceRuleActivity"></activity>
 
         <activity
             android:name=".MainActivity"

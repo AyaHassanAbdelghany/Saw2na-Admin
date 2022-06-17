@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.Coupon.view.adapter
+package com.example.mcommerceadminapp.view.coupon.view.adapter
 
 import android.annotation.SuppressLint
 import android.os.Build

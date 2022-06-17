@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.Coupon.view
+package com.example.mcommerceadminapp.view.coupon.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,10 +8,10 @@ import com.example.mcommerceadminapp.databinding.ActivityPriceRuleBinding
 import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
-import com.example.mcommerceadminapp.view.Coupon.view.adapter.OnClickListner
-import com.example.mcommerceadminapp.view.Coupon.view.adapter.PriceRuleAdapter
-import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModel
-import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModelFactory
+import com.example.mcommerceadminapp.view.coupon.view.adapter.OnClickListner
+import com.example.mcommerceadminapp.view.coupon.view.adapter.PriceRuleAdapter
+import com.example.mcommerceadminapp.view.coupon.viewmodel.CouponViewModel
+import com.example.mcommerceadminapp.view.coupon.viewmodel.CouponViewModelFactory
 
 class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
 

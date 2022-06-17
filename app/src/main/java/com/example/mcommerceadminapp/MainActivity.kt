@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mcommerceadminapp.databinding.ActivityMainBinding
-import com.example.mcommerceadminapp.view.Coupon.view.PriceRuleActivity
+import com.example.mcommerceadminapp.view.coupon.view.PriceRuleActivity
 
 class MainActivity : AppCompatActivity() {
 

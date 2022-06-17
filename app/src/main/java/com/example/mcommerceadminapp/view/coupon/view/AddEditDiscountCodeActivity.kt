@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.Coupon.view
+package com.example.mcommerceadminapp.view.coupon.view
 
 import android.content.Intent
 import android.os.Bundle
