@@ -23,7 +23,7 @@ class InventoryChildAdapter (var context: Context, private var listener: Invento
         val currentItem = productsList.variants[position]
         holder.binding.apply {
             titleTextView.text = currentItem.title
-            quantityTextView.text = currentItem.inventoryQuantity.toString()
+            quantityTextView.setText(currentItem.inventoryQuantity.toString())
             vendorTextView.text = currentItem.inventoryManagement
         }
 
