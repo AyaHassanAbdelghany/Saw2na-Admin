@@ -19,6 +19,7 @@
         <activity
             android:name="com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity"
             android:exported="false" />
+        <activity android:name=".view.products.product_detail.view.ProductDetail"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

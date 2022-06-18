@@ -1,10 +1,9 @@
 package com.example.mcommerceadminapp.view.products.all_products.view
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceadminapp.databinding.ActivityProductsBinding
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
@@ -15,6 +14,8 @@ import com.example.mcommerceadminapp.view.products.all_products.view.adapter.Pro
 import com.example.mcommerceadminapp.view.products.all_products.view.add_product.AddNewProductActivity
 import com.example.mcommerceadminapp.view.products.all_products.view_model.ProductsViewModel
 import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
+import com.example.mcommerceadminapp.view.products.product_detail.view.ProductDetail
+import com.google.gson.Gson
 
 class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
     private lateinit var binding : ActivityProductsBinding
@@ -73,6 +74,12 @@ class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
 
     override fun deleteProduct(productID: String) {
         viewModel.deleteProductByID(productID)
+    }
+
+    override fun showDetails(product: String) {
+       val intent = Intent(this,ProductDetail::class.java)
+        intent.putExtra("product",product)
+      //  startActivity(intent)
     }
 
 }
