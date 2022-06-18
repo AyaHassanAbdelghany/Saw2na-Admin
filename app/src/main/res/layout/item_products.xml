@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="20dp"
-    app:cardCornerRadius="40sp"
     android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="5dp">
+    android:layout_marginVertical="5dp"
+    app:cardCornerRadius="40sp"
+    app:cardElevation="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_margin="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
 
 
         <TextView
@@ -37,44 +37,42 @@
             android:layout_marginEnd="5dp"
             android:background="@color/black"
             app:layout_constraintLeft_toLeftOf="@id/title_TextView"
-            app:layout_constraintTop_toBottomOf="@id/title_TextView"
-            />
+            app:layout_constraintTop_toBottomOf="@id/title_TextView" />
 
         <TextView
             android:id="@+id/vendor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vendor"
-            app:layout_constraintTop_toBottomOf="@+id/line"
-            app:layout_constraintStart_toStartOf="@id/title_TextView"
             android:layout_margin="10dp"
+            android:text="@string/vendor"
             android:textColor="@color/black"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="18sp"/>
+            app:layout_constraintStart_toStartOf="@id/title_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/line" />
 
         <TextView
             android:id="@+id/vendor_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/vendor"
-            app:layout_constraintTop_toTopOf="@id/vendor"
             android:text="Canada"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.65"
-            />
+            app:layout_constraintStart_toEndOf="@id/vendor"
+            app:layout_constraintTop_toTopOf="@id/vendor" />
 
         <TextView
             android:id="@+id/variants"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/variants"
-            app:layout_constraintTop_toBottomOf="@+id/vendor"
-            app:layout_constraintStart_toStartOf="@id/title_TextView"
             android:layout_margin="10dp"
+            android:text="@string/variants"
             android:textColor="@color/black"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="18sp"/>
+            app:layout_constraintStart_toStartOf="@id/title_TextView"
+            app:layout_constraintTop_toBottomOf="@+id/vendor" />
 
         <TextView
             android:id="@+id/variants_textView"
@@ -82,24 +80,22 @@
             android:layout_height="wrap_content"
             android:text="23.0"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/variants"
-            app:layout_constraintTop_toTopOf="@id/variants"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.65"
-            />
+            app:layout_constraintStart_toEndOf="@id/variants"
+            app:layout_constraintTop_toTopOf="@id/variants" />
 
         <ImageView
             android:id="@+id/delete_address"
             android:layout_width="29dp"
             android:layout_height="25dp"
-            android:clickable="true"
-            tools:layout_editor_absoluteX="296dp"
-            tools:layout_editor_absoluteY="-5dp"
             android:layout_marginEnd="15dp"
+            android:clickable="true"
             android:src="@drawable/delete"
-            app:layout_constraintTop_toTopOf="@id/title_TextView"
             app:layout_constraintRight_toRightOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="@id/title_TextView"
+            tools:layout_editor_absoluteX="296dp"
+            tools:layout_editor_absoluteY="-5dp" />
 
         <ImageView
             android:id="@+id/product_imageView"
