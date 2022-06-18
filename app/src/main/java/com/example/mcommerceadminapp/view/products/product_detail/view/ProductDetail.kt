@@ -9,13 +9,15 @@ import com.example.mcommerceadminapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceadminapp.model.Keys
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
+import com.example.mcommerceadminapp.pojo.products.Products
 import com.example.mcommerceadminapp.pojo.products.Variants
-import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
-import com.example.mcommerceadminapp.view.products.product_detail.adapter.ColorAdapter
-import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
-import com.example.mcommerceadminapp.view.products.product_detail.adapter.SizeAdapter
 import com.example.mcommerceadminapp.view.products.product_detail.viewmodel.ProductDetailVM
 import com.example.mcommerceadminapp.view.products.product_detail.viewmodelfactory.ProductDetailVMFactory
+import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
+import com.example.mcommerceapp.view.ui.product_detail.adapter.ColorAdapter
+import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
+import com.example.mcommerceapp.view.ui.product_detail.adapter.SizeAdapter
+import com.google.gson.Gson
 
 
 class ProductDetail : AppCompatActivity(), OnClickListener {
@@ -45,9 +47,14 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
             ProductDetailVMFactory(ProductsRepo.getInstance(ProductsRemoteSource.getInstance()))
         detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
 
-        val intent = intent.getStringExtra("PRODUCTS_ID")
+        val intent = intent.getStringExtra("product")
 
         Log.e("Product Details : ", intent.toString())
+
+        val gson = Gson()
+        val product:Products = gson.fromJson(intent, Products::class.java)
+
+        Log.e("Product Details : ", product.toString())
 
         if (intent != null) {
             detailVM.getProductDetail(intent)

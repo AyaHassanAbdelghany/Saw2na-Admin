@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.products.product_detail.adapter
+package com.example.mcommerceapp.view.ui.product_detail.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceadminapp.R
 import com.example.mcommerceadminapp.pojo.products.Variants
-import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
 
 class SizeAdapter(var context: Context, var listener: OnClickListener): RecyclerView.Adapter<SizeAdapter.ViewHolder>() {
 
@@ -30,7 +29,7 @@ class SizeAdapter(var context: Context, var listener: OnClickListener): Recycler
         holder.sizeTxt.text = size
         holder.itemView.setOnClickListener {
             listener.onClickSize(size!!)
-            holder.itemView.setBackgroundResource(R.drawable.card_border)
+            holder.itemView.setBackgroundResource(R.drawable.colored_border_button_background)
         }
     }
 

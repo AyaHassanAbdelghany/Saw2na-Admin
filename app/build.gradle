@@ -52,6 +52,10 @@ dependencies {
     //CircleIndicator
     implementation 'me.relex:circleindicator:2.1.6'
 
+    //adding circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -72,5 +76,6 @@ dependencies {
     //expanded TextView
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'kr.co.prnd:readmore-textview:1.0.0'
+
 
 }

@@ -1,12 +1,14 @@
 package com.example.mcommerceadminapp.view.products.all_products.view.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mcommerceadminapp.databinding.ItemProductsBinding
 import com.example.mcommerceadminapp.pojo.products.Products
+import com.google.gson.Gson
 
 
 class ProductsAdapter(var context: Context, private var listener: ProductsCommunicator) :
@@ -36,7 +38,7 @@ class ProductsAdapter(var context: Context, private var listener: ProductsCommun
             notifyDataSetChanged()
         }
         holder.itemView.setOnClickListener {
-
+            listener.showDetails(Gson().toJson(currentItem))
         }
     }
 
