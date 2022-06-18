@@ -49,6 +49,7 @@ class AddNewProductActivity : AppCompatActivity() {
         i.action = Intent.ACTION_GET_CONTENT
         launchSomeActivity.launch(i)
     }
+    
 
     private var launchSomeActivity = registerForActivityResult(
         StartActivityForResult()

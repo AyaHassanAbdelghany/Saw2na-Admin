@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".view.products.all_products.view.add_product.AddNewProductActivity">
 
+
     <ImageView
         android:id="@+id/product_image"
         android:layout_width="0dp"
