@@ -1,5 +1,6 @@
 package com.example.mcommerceadminapp.model.shopify_repository.products
 
+import com.example.mcommerceadminapp.model.Keys
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
 import com.example.mcommerceadminapp.pojo.products.Products
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -22,14 +23,18 @@ class ProductsRepo private constructor(private val source: ProductsRemoteSource)
     }
 
     suspend fun addProduct(products: Products):Products{
-        return source.addProduct(getRequest(products))
+        return source.addProduct(getProductRequestBody(products))
     }
 
     suspend fun deleteProductByID(productID:String){
         source.deleteProductByID(productID)
     }
 
-    private fun getRequest(products: Products): RequestBody {
+    suspend fun setInventoryLevel(inventoryID:Long,amount:Int){
+        source.setInventoryLevel(getLevelRequestBody(inventoryID,amount))
+    }
+
+    private fun getProductRequestBody(products: Products): RequestBody {
 
         val jsonReq = JSONObject()
         jsonReq.put("title", products.title)
@@ -39,6 +44,16 @@ class ProductsRepo private constructor(private val source: ProductsRemoteSource)
         val req = JSONObject()
         req.put("product", jsonReq)
         return req.toString().toRequestBody("application/json".toMediaTypeOrNull())
+    }
+
+    private fun getLevelRequestBody(inventoryID:Long,amount:Int): RequestBody {
+
+        val jsonReq = JSONObject()
+        jsonReq.put("location_id", Keys.INVENTORY_LOCATION)
+        jsonReq.put("inventory_item_id", inventoryID)
+        jsonReq.put("available", amount)
+
+        return jsonReq.toString().toRequestBody("application/json".toMediaTypeOrNull())
     }
 
 }

@@ -1,16 +1,12 @@
 package com.example.mcommerceadminapp.view.inventory.view.adapter
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mcommerceadminapp.R
 import com.example.mcommerceadminapp.databinding.ItemInventoryChildBinding
 import com.example.mcommerceadminapp.pojo.products.Products
-import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsCommunicator
 
 class InventoryChildAdapter (var context: Context, private var listener: InventoryCommunicator) :
     RecyclerView.Adapter<InventoryChildAdapter.ViewHolder>() {
@@ -40,6 +36,8 @@ class InventoryChildAdapter (var context: Context, private var listener: Invento
             holder.binding.quantityTextView.isEnabled = false
             holder.binding.plusBt.visibility = View.VISIBLE
             holder.binding.confirmBt.visibility = View.INVISIBLE
+
+            listener.setInventoryLevel(currentItem.inventoryItemId!!,holder.binding.quantityTextView.text.toString().toInt())
         }
 
         holder.itemView.setOnClickListener {

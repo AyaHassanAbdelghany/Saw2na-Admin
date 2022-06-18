@@ -30,7 +30,15 @@ interface ProductsService {
         "Content-Type: ${Keys.Content_Type}"
     )
     @DELETE("products/{productID}.json")
-    suspend fun deleteProductByID(@Path("productID") productID:String): Response<JsonObject>
+    suspend fun deleteProductByID(@Path("productID") productID: String): Response<JsonObject>
 
+    @Headers(
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
+    )
+    @POST(Keys.INVENTORY_LEVEL)
+    suspend fun setInventoryLevel(
+        @Body requestBody: RequestBody
+    ): Response<JsonObject>
 
 }
