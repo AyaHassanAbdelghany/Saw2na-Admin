@@ -3,15 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/drawable-anydpi/confirm.xml" value="0.1135" />
         <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/drawable-anydpi/delete.xml" value="0.1165" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/drawable/card.xml" value="0.1135" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/activity_add_edit_price_rule.xml" value="0.15" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/activity_discount_code.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/activity_price_rule.xml" value="0.1" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/alert_dialog.xml" value="0.1" />
         <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/item_discount.xml" value="0.20416666666666666" />
         <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/drawable-mdpi/icon_minus_circle.xml" value="0.1245" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/item_discount_code.xml" value="0.22" />
+        <entry key="..\:/ITI/Android/final_project/MCommerceAdminApp/app/src/main/res/layout/item_price_rule.xml" value="0.1" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/drawable-mdpi/icon_minus_circle.xml" value="0.1245" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/drawable/card.xml" value="0.168" />
         <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/activity_inventory.xml" value="0.25" />
         <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/activity_products.xml" value="0.25" />
         <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_inventory.xml" value="0.20427350427350427" />
         <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_inventory_child.xml" value="0.24895833333333334" />
         <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_products.xml" value="0.25" />
+
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_price_rule.xml" value="0.25" />
+        <entry key="..\:/ITI/Final Project/MCommerceAdminApp/app/src/main/res/layout/item_products.xml" value="0.25" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceAdminApp/app/src/main/res/layout/activity_add_edit_price_rule.xml" value="0.1" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceAdminApp/app/src/main/res/layout/activity_add_new_product.xml" value="0.1" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceAdminApp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/ITI/ITI_labs/Android/Final_graduation/MCommerceAdminApp/app/src/main/res/layout/activity_products.xml" value="0.1" />
       </map>
     </option>
   </component>
