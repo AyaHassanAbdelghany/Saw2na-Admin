@@ -1,14 +1,14 @@
 package com.example.mcommerceadminapp.model
 
-import com.example.mcommerceadminapp.pojo.products.Review
-
 
 class Keys {
     companion object {
 
         const val PRICE_RULES ="price_rules"
+        const val  DISCOUNT_CODE = "discount_codes"
         const val PRICE_RULES_JSON ="price_rules.json"
         const val PRODUCTS ="products.json"
+        const val  DISCOUNT_CODE_JSON = "discount_codes.json"
 
 
         const val Shopify_Access_Token = "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"

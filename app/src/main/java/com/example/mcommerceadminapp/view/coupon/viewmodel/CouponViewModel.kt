@@ -1,13 +1,12 @@
-package com.example.mcommerceadminapp.view.Coupon.viewmodel
+package com.example.mcommerceadminapp.view.coupon.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcommerceadminapp.model.remote_source.coupon.ICoupon
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.ICouponRepo
-import com.example.mcommerceadminapp.pojo.coupon.PriceRules
+import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -35,7 +34,7 @@ class CouponViewModel (private val iCouponRepo: ICouponRepo) :ViewModel(){
    }
   fun deletePriceRuleID(priceRuleID: String) {
       viewModelScope.launch (Dispatchers.IO) {
-          iCouponRepo.deletePriceRuleID(priceRuleID)
+          iCouponRepo.deletePriceRule(priceRuleID)
       }
   }
-    }
+}
