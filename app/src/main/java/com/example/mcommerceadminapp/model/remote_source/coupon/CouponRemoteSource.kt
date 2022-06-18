@@ -20,6 +20,7 @@ class CouponRemoteSource :ICoupon {
     override suspend fun createPriceRule(req: RequestBody): PriceRules {
         val res = api.createPriceRule(Keys.PRICE_RULES_JSON,req)
         return gson.fromJson(
+
             res.body()!!.get("price_rule") as JsonObject,
             object : TypeToken<PriceRules>() {}.type
         )
