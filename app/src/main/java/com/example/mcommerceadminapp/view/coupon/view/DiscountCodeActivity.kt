@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.Coupon.view
+package com.example.mcommerceadminapp.view.coupon.view
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -14,10 +14,10 @@ import com.example.mcommerceadminapp.databinding.ActivityDiscountCodeBinding
 import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
-import com.example.mcommerceadminapp.view.Coupon.view.adapter.DiscountCodeAdapter
-import com.example.mcommerceadminapp.view.Coupon.view.adapter.OnClickListner
-import com.example.mcommerceadminapp.view.Coupon.viewmodel.DiscountCodeViewModel
-import com.example.mcommerceadminapp.view.Coupon.viewmodel.DiscountCodeViewModelFactory
+import com.example.mcommerceadminapp.view.coupon.view.adapter.DiscountCodeAdapter
+import com.example.mcommerceadminapp.view.coupon.view.adapter.OnClickListner
+import com.example.mcommerceadminapp.view.coupon.viewmodel.DiscountCodeViewModel
+import com.example.mcommerceadminapp.view.coupon.viewmodel.DiscountCodeViewModelFactory
 import com.example.mcommerceadminapp.MainActivity
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 
@@ -93,7 +93,10 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
         discountCodeVM.deleteDiscountCodeID(this.idIntent , id.toString())
     }
 
-    override fun onClickEdit(priceRule: PriceRules, type: String) {
+    override fun <T> onClickEdit(typeObject: T, type: String) {
+        val discountCode = typeObject as DiscountCodes
+        discountCodeVM.updateDiscountCode(this.idIntent, discountCode.id.toString(),discountCode)
 
     }
+
 }

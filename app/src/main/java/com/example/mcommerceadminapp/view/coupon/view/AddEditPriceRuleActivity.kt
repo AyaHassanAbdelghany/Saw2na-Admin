@@ -1,11 +1,9 @@
-package com.example.mcommerceadminapp.view.Coupon.view
+package com.example.mcommerceadminapp.view.coupon.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mcommerceadminapp.databinding.ActivityAddEditPriceRuleBinding
-import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +32,6 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
                 val spf = SimpleDateFormat("yyyy-MM-dd")
                 startDate = spf.format(spf.parse(intent.getStringExtra("startAt")))
                 var date = startDate.split("-")
-
                 today.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
 
             }
@@ -75,7 +72,7 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
 
                         val intent = Intent()
                         intent.putExtra("title", binding.titleText.text.toString())
-                        intent.putExtra("value", binding.valueText.text.toString())
+                        intent.putExtra("value", "-"+binding.valueText.text.toString())
                         intent.putExtra("usageLimit", binding.usageLimitText.text.toString())
                         intent.putExtra("startAt", startDate)
                         setResult(1, intent)

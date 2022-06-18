@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.Coupon.viewmodel
+package com.example.mcommerceadminapp.view.coupon.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -34,7 +34,7 @@ class CouponViewModel (private val iCouponRepo: ICouponRepo) :ViewModel(){
    }
   fun deletePriceRuleID(priceRuleID: String) {
       viewModelScope.launch (Dispatchers.IO) {
-          iCouponRepo.deletePriceRuleID(priceRuleID)
+          iCouponRepo.deletePriceRule(priceRuleID)
       }
   }
 }

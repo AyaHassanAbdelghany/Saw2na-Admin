@@ -1,15 +1,10 @@
 package com.example.mcommerceadminapp.view.inventory.view
 
-import android.animation.LayoutTransition
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.Transition
 import android.view.View
-import android.view.Window
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.AutoTransition
-import androidx.transition.Explode
 import androidx.transition.Slide
 import androidx.transition.TransitionManager
 import com.example.mcommerceadminapp.databinding.ActivityInventoryBinding
@@ -19,8 +14,6 @@ import com.example.mcommerceadminapp.view.inventory.view.adapter.InventoryAdapte
 import com.example.mcommerceadminapp.view.inventory.view.adapter.InventoryCommunicator
 import com.example.mcommerceadminapp.view.inventory.view_model.InventoryViewModel
 import com.example.mcommerceadminapp.view.inventory.view_model.factory.InventoryViewModelFactory
-import com.example.mcommerceadminapp.view.products.all_products.view_model.ProductsViewModel
-import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
 
 class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
 
@@ -56,7 +49,8 @@ class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
 
     }
 
-    override fun setDefaultAddress(addressID: String) {
+    override fun setInventoryLevel(inventoryID:Long,amount:Int) {
+        viewModel.setInventoryLevel(inventoryID,amount)
     }
 
     override fun deleteProduct(addressID: String) {

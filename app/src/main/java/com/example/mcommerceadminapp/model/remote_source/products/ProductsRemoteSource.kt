@@ -48,4 +48,10 @@ class ProductsRemoteSource private constructor() {
 
     }
 
+    suspend fun setInventoryLevel(requestBody: RequestBody){
+        val res = api.setInventoryLevel(requestBody)
+        Log.d("ProductsRemoteSource", "setInventoryLevel:  $res")
+
+    }
+
 }

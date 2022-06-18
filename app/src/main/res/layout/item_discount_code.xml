@@ -4,19 +4,21 @@
     android:id="@+id/card_discount_code"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/blue_dark"
-    app:cardCornerRadius="20sp"
-    app:cardElevation="2dp"
-    android:layout_margin="15dp">
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="5dp"
+    app:cardCornerRadius="40sp"
+    app:cardElevation="20dp">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/constraint_discount"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_margin="15dp">
 
 
-    <TextView
+    <EditText
+        android:background="@android:color/transparent"
+        android:enabled="false"
         android:id="@+id/code_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,18 +46,31 @@
         android:src="@drawable/delete"
         android:id="@+id/delete_imag"
         app:layout_constraintTop_toTopOf="@id/constraint_discount"
-        app:layout_constraintStart_toEndOf="@id/edit_imag"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
     </ImageView>
 
     <ImageView
+
         android:id="@+id/edit_imag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:src="@drawable/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/constraint_discount">
+
+    </ImageView>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/confirm_imag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/constraint_discount">
 

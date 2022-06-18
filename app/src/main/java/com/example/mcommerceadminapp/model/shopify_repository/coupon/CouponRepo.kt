@@ -35,14 +35,13 @@ class CouponRepo private  constructor(private var iCouponRemoteSource : ICoupon)
         allPriceRules.postValue(list)
     }
 
-    override suspend fun deletePriceRuleID(priceRuleID: String) {
+    override suspend fun deletePriceRule(priceRuleID: String) {
         iCouponRemoteSource.deletePriceRuleID(priceRuleID)
     }
 
     override suspend fun updatePriceRule(priceRuleID: String, priceRule: PriceRules) {
         iCouponRemoteSource.updatePriceRule(priceRuleID, getRequestPriceRule(priceRule))
         getAllPriceRules()
-
     }
 
 
@@ -59,10 +58,20 @@ class CouponRepo private  constructor(private var iCouponRemoteSource : ICoupon)
         allDiscountCode.postValue(list)
     }
 
-    override suspend fun deleteDiscountCodeID(priceRuleID:String ,discountCodeID: String){
+    override suspend fun deleteDiscountCode(priceRuleID:String, discountCodeID: String){
     iCouponRemoteSource.deleteDiscountCodeID(priceRuleID,discountCodeID)
         getAllDiscountCode(priceRuleID)
     }
+
+    override suspend fun updateDiscountCode(
+        priceRuleID: String,
+        discountCodeID: String,
+        discountCode: DiscountCodes
+    ) {
+        iCouponRemoteSource.updateDiscountCode(priceRuleID, discountCodeID,getRequestDiscountCode(discountCode))
+    }
+
+
     private fun getRequestPriceRule(priceRule: PriceRules): RequestBody {
 
         val jsonReq = JSONObject()
@@ -81,7 +90,6 @@ class CouponRepo private  constructor(private var iCouponRemoteSource : ICoupon)
         val requestBody = req.toString().toRequestBody("application/json".toMediaTypeOrNull())
         return requestBody
     }
-
     private fun getRequestDiscountCode(discountCode: DiscountCodes): RequestBody {
 
         val jsonReq = JSONObject()

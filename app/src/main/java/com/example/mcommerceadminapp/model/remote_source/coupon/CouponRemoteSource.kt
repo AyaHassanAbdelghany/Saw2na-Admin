@@ -1,6 +1,5 @@
 package com.example.mcommerceadminapp.model.remote_source.coupon
 
-import android.util.Log
 import com.example.mcommerceadminapp.model.Keys
 import com.example.mcommerceadminapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceadminapp.network.coupon.CouponService
@@ -40,7 +39,7 @@ class CouponRemoteSource :ICoupon {
         )
     }
     override suspend fun deletePriceRuleID(priceRuleID:String) {
-         api.deletePriceRuleId(Keys.PRICE_RULES,priceRuleID)
+         api.deletePriceRule(Keys.PRICE_RULES,priceRuleID)
     }
 
     override suspend fun getAllDiscountCode(priceRuleID:String) : ArrayList<DiscountCodes> {
@@ -53,7 +52,7 @@ class CouponRemoteSource :ICoupon {
 
    override suspend fun deleteDiscountCodeID(priceRuleID:String ,discountCodeID: String)
     {
-        api.deleteDiscountCodeId(Keys.PRICE_RULES,priceRuleID,Keys.DISCOUNT_CODE,discountCodeID)
+        api.deleteDiscountCode(Keys.PRICE_RULES,priceRuleID,Keys.DISCOUNT_CODE,discountCodeID)
 
     }
 
@@ -64,4 +63,16 @@ class CouponRemoteSource :ICoupon {
             object : TypeToken<DiscountCodes>() {}.type
         )
     }
+
+    override suspend fun updateDiscountCode(
+        priceRuleID: String,
+        discountCodeID: String,
+        req: RequestBody
+    ) {
+        val res = api.updateDiscountCode(Keys.PRICE_RULES,priceRuleID,
+            Keys.DISCOUNT_CODE,discountCodeID,req)
+        return gson.fromJson(
+            res.body()!!.get("discount_code") as JsonObject,
+            object : TypeToken<DiscountCodes>() {}.type
+        )    }
 }

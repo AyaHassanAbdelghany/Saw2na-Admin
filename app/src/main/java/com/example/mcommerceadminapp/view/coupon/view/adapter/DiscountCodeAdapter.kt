@@ -1,15 +1,15 @@
-package com.example.mcommerceadminapp.view.Coupon.view.adapter
+package com.example.mcommerceadminapp.view.coupon.view.adapter
 
 import android.annotation.SuppressLint
+import android.opengl.Visibility
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mcommerceadminapp.databinding.ItemDiscountCodeBinding
-import com.example.mcommerceadminapp.databinding.ItemPriceRuleBinding
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
-import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 
 class DiscountCodeAdapter (var listner : OnClickListner) : RecyclerView.Adapter<DiscountCodeAdapter.ViewHolder>(){
     var discountCodeList: ArrayList<DiscountCodes> = arrayListOf()
@@ -25,7 +25,7 @@ class DiscountCodeAdapter (var listner : OnClickListner) : RecyclerView.Adapter<
         val currentItem = discountCodeList[position]
         holder.binding.apply {
 
-            codeText.text = currentItem.code
+            codeText.setText( currentItem.code)
             usageCountText.text = currentItem.usageCount.toString()
 
         }
@@ -33,6 +33,19 @@ class DiscountCodeAdapter (var listner : OnClickListner) : RecyclerView.Adapter<
             listner.onClick(currentItem.id,"DELETE")
             discountCodeList.remove(currentItem)
             notifyDataSetChanged()
+        }
+
+        holder.binding.editImag.setOnClickListener {
+            holder.binding.codeText.isEnabled = true
+            holder.binding.editImag.visibility = ImageView.GONE
+            holder.binding.confirmImag.visibility = ImageView.VISIBLE
+        }
+        holder.binding.confirmImag.setOnClickListener{
+            currentItem.code = holder.binding.codeText.text.toString()
+            holder.binding.codeText.isEnabled = false
+            holder.binding.editImag.visibility = ImageView.VISIBLE
+            holder.binding.confirmImag.visibility = ImageView.GONE
+            listner.onClickEdit(currentItem,"EDIT")
         }
     }
 
