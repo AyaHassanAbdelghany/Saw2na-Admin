@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mcommerceapp.R
-import com.example.mcommerceapp.pojo.products.Variants
+import com.example.mcommerceadminapp.R
+import com.example.mcommerceadminapp.pojo.products.Variants
 
 class SizeAdapter(var context: Context, var listener: OnClickListener): RecyclerView.Adapter<SizeAdapter.ViewHolder>() {
 
