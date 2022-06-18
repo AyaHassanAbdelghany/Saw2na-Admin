@@ -15,6 +15,15 @@
         <activity android:name=".view.coupon.view.AddEditPriceRuleActivity"></activity>
 
         <activity
+            android:name=".view.inventory.view.InventoryActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.mcommerceadminapp.view.products.all_products.view.add_product.AddNewProductActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

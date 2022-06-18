@@ -1,0 +1,46 @@
+package com.example.mcommerceadminapp.view.products.product_detail.adapter
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceadminapp.R
+import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
+
+class ColorAdapter( var context: Context, var listener: OnClickListener): RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
+
+    private lateinit var listColor: HashSet<String>
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent, false)
+        return ViewHolder(view)
+    }
+
+    fun setColorList(listSize:  HashSet<String>) {
+        this.listColor = listSize
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+        val color = listColor.elementAt(position)
+        val intColor = Color.parseColor(color)
+        val hexColor = Integer.toHexString(intColor).substring(2)
+        holder.colorCard.setCardBackgroundColor((Color.parseColor("#${hexColor}")))
+
+        holder.itemView.setOnClickListener {
+            listener.onClickColor(color)
+            holder.itemView.setBackgroundResource(R.drawable.card_border)
+        }
+    }
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        val colorCard: CardView = view.findViewById(R.id.card1)
+    }
+
+    override fun getItemCount(): Int = listColor.size
+}
