@@ -1,10 +1,13 @@
 package com.example.mcommerceadminapp.view.inventory.view.adapter
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceadminapp.R
 import com.example.mcommerceadminapp.databinding.ItemInventoryChildBinding
 import com.example.mcommerceadminapp.pojo.products.Products
 import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsCommunicator
@@ -29,8 +32,14 @@ class InventoryChildAdapter (var context: Context, private var listener: Invento
 
         holder.binding.plusBt.setOnClickListener {
             holder.binding.quantityTextView.isEnabled = true
-            holder.binding.quantityTextView.background = null
-            holder.binding.plusBt.background
+            holder.binding.plusBt.visibility = View.INVISIBLE
+            holder.binding.confirmBt.visibility = View.VISIBLE
+        }
+
+        holder.binding.confirmBt.setOnClickListener {
+            holder.binding.quantityTextView.isEnabled = false
+            holder.binding.plusBt.visibility = View.VISIBLE
+            holder.binding.confirmBt.visibility = View.INVISIBLE
         }
 
         holder.itemView.setOnClickListener {

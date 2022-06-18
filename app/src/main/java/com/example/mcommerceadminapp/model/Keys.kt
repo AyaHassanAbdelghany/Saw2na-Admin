@@ -1,5 +1,7 @@
 package com.example.mcommerceadminapp.model
 
+import com.example.mcommerceadminapp.pojo.products.Review
+
 
 class Keys {
     companion object {
@@ -11,10 +13,10 @@ class Keys {
         const val  DISCOUNT_CODE_JSON = "discount_codes.json"
 
 
-        const val Shopify_Access_Token = "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"
+        const val Shopify_Access_Token = "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"
         const val Content_Type = "application/json"
 
-        const val BASE_URL: String ="https://madalex20220.myshopify.com/admin/api/2022-01/"
+        const val BASE_URL: String ="https://madalex2022-android.myshopify.com/admin/api/2022-01/"
 
         val REVIEWS = listOf(
             Review(name = "Mariam", rate = 5.0F, date = "05/04/2021", desc = "This is so cool and very comfortable."),

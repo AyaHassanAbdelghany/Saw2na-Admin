@@ -5,11 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mcommerceadminapp.databinding.ActivityMainBinding
-import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModel
-import com.example.mcommerceadminapp.view.Coupon.viewmodel.CouponViewModelFactory
+import com.example.mcommerceadminapp.view.coupon.view.PriceRuleActivity
+import com.example.mcommerceadminapp.view.coupon.viewmodel.CouponViewModel
+import com.example.mcommerceadminapp.view.coupon.viewmodel.CouponViewModelFactory
 import com.example.mcommerceadminapp.view.inventory.view.InventoryActivity
 import com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity
-import com.example.mcommerceadminapp.view.coupon.view.PriceRuleActivity
 
 class MainActivity : AppCompatActivity() {
 
