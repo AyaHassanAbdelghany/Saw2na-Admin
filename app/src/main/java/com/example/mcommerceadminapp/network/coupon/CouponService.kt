@@ -1,5 +1,6 @@
 package com.example.mcommerceadminapp.network.coupon
 
+import com.example.mcommerceadminapp.model.Keys
 import com.google.gson.JsonObject
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -7,10 +8,9 @@ import retrofit2.http.*
 
 interface CouponService {
 
-
     @Headers(
-        "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
     )
     @GET("{resource}")
     suspend fun getAllPriceRules(
@@ -19,8 +19,8 @@ interface CouponService {
    ////////////////
 
     @Headers(
-        "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
     )
     @POST("{resource}")
     suspend fun createPriceRule(
@@ -29,8 +29,8 @@ interface CouponService {
     ///////////////
 
     @Headers(
-        "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
     )
     @PUT("{resource}/{priceRuleId}.json")
     suspend fun updatePriceRule(
@@ -40,8 +40,8 @@ interface CouponService {
     ///////////
 
     @Headers(
-        "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
     )
     @DELETE("{resource}/{priceRuleId}.json")
     suspend fun deletePriceRule(
@@ -52,8 +52,8 @@ interface CouponService {
     //////
 
     @Headers(
-        "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
     )
     @GET("{priceRule}/{priceRuleId}/{resource}")
     suspend fun getAllDiscountCode(
@@ -65,9 +65,9 @@ interface CouponService {
     ////////
 
     @Headers(
-    "X-Shopify-Access-Token: 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",
-    "Content-Type: application/json"
-  )
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
+    )
   @DELETE("{priceRule}/{priceRuleId}/{discountCode}/{discountCodeId}.json")
    suspend fun deleteDiscountCode(
     @Path("priceRule", encoded = true) priceRule: String,
@@ -79,10 +79,10 @@ interface CouponService {
 
 
 /////////////
-    @Headers(
-        "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
-    )
+@Headers(
+    "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+    "Content-Type: ${Keys.Content_Type}"
+)
     @POST("{priceRule}/{priceRuleId}/{discountCode}")
     suspend fun createDiscountCode(
         @Path("priceRule", encoded = true) priceRule: String,
@@ -92,8 +92,8 @@ interface CouponService {
 
     //////////////
     @Headers(
-        "X-Shopify-Access-Token: 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",
-        "Content-Type: application/json"
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
     )
     @PUT("{priceRule}/{priceRuleId}/{discountCode}/{discountCodeId}.json")
     suspend fun updateDiscountCode(
