@@ -37,6 +37,7 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
         adapter.setData(ArrayList())
 
         binding.recycleViewProducts.adapter = adapter
+        binding.loadingProgressBar.visibility = View.INVISIBLE
 
         viewModel.products.observe(this) {
             binding.loadingProgressBar.visibility = View.INVISIBLE
@@ -47,12 +48,14 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 viewModel.getAllProduct()
+                binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewProducts.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 binding.noNetworkLayout.visibility = View.VISIBLE
+                binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.recycleViewProducts.visibility = View.INVISIBLE
             }

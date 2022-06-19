@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceadminapp.databinding.ActivityPriceRuleBinding
 import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
+import com.example.mcommerceadminapp.network.MyConnectivityManager
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 import com.example.mcommerceadminapp.view.coupon.view.adapter.OnClickListner
 import com.example.mcommerceadminapp.view.coupon.view.adapter.PriceRuleAdapter
@@ -34,7 +36,25 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
 
         }
         init()
-        couponVM.getAllPriceRules()
+
+        MyConnectivityManager.state.observe(this) {
+
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                couponVM.getAllPriceRules()
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.noNetworkLayout.visibility = View.INVISIBLE
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.priceRuleRecycler.visibility = View.VISIBLE
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.noNetworkLayout.visibility = View.VISIBLE
+                binding.loadingProgressBar.visibility = View.INVISIBLE
+                binding.loadingProgressBar.visibility = View.INVISIBLE
+                binding.priceRuleRecycler.visibility = View.INVISIBLE
+            }
+        }
+
     }
 
     override fun onResume() {
