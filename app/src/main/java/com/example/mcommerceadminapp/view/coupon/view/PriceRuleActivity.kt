@@ -3,6 +3,7 @@ package com.example.mcommerceadminapp.view.coupon.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceadminapp.databinding.ActivityPriceRuleBinding
 import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
@@ -41,6 +42,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         couponVM.allPriceRules.removeObservers(this)
         couponVM.allPriceRules.observe(this){
             if(it !=null) {
+                binding.loadingProgressBar.visibility = View.INVISIBLE
                 priceRuleAdapter.setData(it)
                 binding.priceRuleRecycler.adapter = priceRuleAdapter
             }

@@ -38,7 +38,7 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
         }
 
 
-        binding.datePicker.init(
+        binding.startDatePicker.init(
             today.get(Calendar.YEAR), today.get(Calendar.MONTH),
             today.get(Calendar.DAY_OF_MONTH)
 
