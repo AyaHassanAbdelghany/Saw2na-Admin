@@ -2,6 +2,7 @@ package com.example.mcommerceadminapp
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mcommerceadminapp.databinding.ActivityMainBinding
@@ -33,6 +34,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, InventoryActivity::class.java))
         }
 
+
+        val connectivityManager = getSystemService(ConnectivityManager::class.java) as ConnectivityManager
+        connectivityManager.requestNetwork(
+            MyConnectivityManager.networkRequest,
+            MyConnectivityManager.networkCallback
+        )
 
     }
 }

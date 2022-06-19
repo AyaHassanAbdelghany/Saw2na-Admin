@@ -3,6 +3,7 @@ package com.example.mcommerceadminapp.view.products.all_products.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceadminapp.databinding.ActivityProductsBinding
@@ -17,9 +18,9 @@ import com.example.mcommerceadminapp.view.products.all_products.view_model.Produ
 import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
 import com.example.mcommerceadminapp.view.products.product_detail.view.ProductDetail
 
-class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
-    private lateinit var binding : ActivityProductsBinding
-    private lateinit var viewModel:ProductsViewModel
+class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
+    private lateinit var binding: ActivityProductsBinding
+    private lateinit var viewModel: ProductsViewModel
     val REQUEST_CODE = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,34 +28,40 @@ class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
         binding = ActivityProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val factory = ProductsViewModelFactory(ProductsRepo.getInstance(ProductsRemoteSource.getInstance()))
+        val factory =
+            ProductsViewModelFactory(ProductsRepo.getInstance(ProductsRemoteSource.getInstance()))
 
-        viewModel = ViewModelProvider(this,factory)[ProductsViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[ProductsViewModel::class.java]
 
-        val adapter = ProductsAdapter(this,this)
+        val adapter = ProductsAdapter(this, this)
         adapter.setData(ArrayList())
 
         binding.recycleViewProducts.adapter = adapter
 
-        viewModel.products.observe(this){
-           binding.loadingProgressBar.visibility = View.INVISIBLE
+        viewModel.products.observe(this) {
+            binding.loadingProgressBar.visibility = View.INVISIBLE
             adapter.setData(it)
         }
+        MyConnectivityManager.state.observe(this) {
 
-        viewModel.getAllProduct()
-
-        binding.addProductButton.setOnClickListener {
-            startActivityForResult(Intent(this,AddNewProductActivity::class.java),2)
-        }
-
-        MyConnectivityManager.state.observe(this){
-            if (it){
-
-            }else{
-
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                viewModel.getAllProduct()
+                binding.noNetworkLayout.visibility = View.INVISIBLE
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.recycleViewProducts.visibility = View.VISIBLE
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.noNetworkLayout.visibility = View.VISIBLE
+                binding.loadingProgressBar.visibility = View.INVISIBLE
+                binding.recycleViewProducts.visibility = View.INVISIBLE
             }
         }
 
+
+        binding.addProductButton.setOnClickListener {
+            startActivityForResult(Intent(this, AddNewProductActivity::class.java), 2)
+        }
 
     }
 
@@ -75,6 +82,7 @@ class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
             }
         }
     }
+
     override fun setDefaultAddress(addressID: String) {
     }
 
@@ -83,9 +91,9 @@ class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
     }
 
     override fun showDetails(product: String) {
-       val intent = Intent(this,ProductDetail::class.java)
-        intent.putExtra("product",product)
-      //  startActivity(intent)
+        val intent = Intent(this, ProductDetail::class.java)
+        intent.putExtra("product", product)
+        //  startActivity(intent)
     }
 
 }

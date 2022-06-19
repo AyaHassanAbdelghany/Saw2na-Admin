@@ -18,4 +18,5 @@
     <string name="inventory">Inventory</string>
     <string name="variants">Variants</string>
     <string name="discount">Discount</string>
+    <string name="searching_for_network_connection">Searching for network connection</string>
 </resources>

@@ -77,5 +77,9 @@ dependencies {
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'kr.co.prnd:readmore-textview:1.0.0'
 
+    //Animated GIF
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+
+
 
 }
