@@ -40,8 +40,10 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         super.onResume()
         couponVM.allPriceRules.removeObservers(this)
         couponVM.allPriceRules.observe(this){
-            priceRuleAdapter.setData(it)
-            binding.priceRuleRecycler.adapter = priceRuleAdapter
+            if(it !=null) {
+                priceRuleAdapter.setData(it)
+                binding.priceRuleRecycler.adapter = priceRuleAdapter
+            }
         }
     }
 
