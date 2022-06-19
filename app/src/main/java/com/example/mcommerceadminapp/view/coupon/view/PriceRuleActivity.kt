@@ -59,6 +59,8 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
                 priceRule.value = data.getStringExtra("value")
                 priceRule.usageLimit = data.getStringExtra("usageLimit")
                 priceRule.startsAt = data.getStringExtra("startAt")
+                priceRule.endsAt = data.getStringExtra("endAt")
+
                 couponVM.createPriceRule(priceRule)
             }
         }
@@ -70,6 +72,8 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
                 priceRule.value = data.getStringExtra("value")
                 priceRule.usageLimit = data.getStringExtra("usageLimit")
                 priceRule.startsAt = data.getStringExtra("startAt")
+                priceRule.endsAt = data.getStringExtra("endAt")
+
                 couponVM.updatePriceRule(data.getStringExtra("id").toString(),priceRule)
             }
         }
@@ -104,6 +108,8 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         intent.putExtra("value",priceRule.value)
         intent.putExtra("usageLimit",priceRule.usageLimit)
         intent.putExtra("startAt",priceRule.startsAt)
+        intent.putExtra("endAt",priceRule.endsAt)
+
         intent.putExtra("id",priceRule.id)
         startActivityForResult(intent,2)
     }

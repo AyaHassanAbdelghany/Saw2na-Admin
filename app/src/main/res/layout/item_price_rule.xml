@@ -89,7 +89,7 @@
             app:layout_constraintTop_toBottomOf="@id/valuePriceRule_text" />
 
         <TextView
-            android:id="@+id/Date_text"
+            android:id="@+id/dateStart_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -109,8 +109,32 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/Date_text"
+            app:layout_constraintStart_toEndOf="@id/dateStart_text"
             app:layout_constraintTop_toBottomOf="@id/limitPriceRule_text" />
+
+        <TextView
+            android:id="@+id/dateEnd_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="End Date :"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateStart_text" />
+
+        <TextView
+            android:id="@+id/endDate_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2202-6-19"
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/dateEnd_text"
+            app:layout_constraintTop_toBottomOf="@id/startDate_text" />
 
         <ImageView
             android:id="@+id/delete_imag"

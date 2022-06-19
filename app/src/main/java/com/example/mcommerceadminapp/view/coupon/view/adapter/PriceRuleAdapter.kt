@@ -32,6 +32,8 @@ class PriceRuleAdapter ( var listner : OnClickListner) : RecyclerView.Adapter<Pr
             val spf = SimpleDateFormat("yyyy-MM-dd")
            val startDate = spf.format(spf.parse(currentItem.startsAt))
            startDateText.text = startDate
+            val endDate = spf.format(spf.parse(currentItem.endsAt))
+            endDateText.text = endDate
 
         }
         holder.binding.cardPriceRule.setOnClickListener {
