@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceadminapp.R
 import com.example.mcommerceadminapp.databinding.ItemDiscountCodeBinding
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 
@@ -19,6 +20,7 @@ class DiscountCodeAdapter (var listner : OnClickListner) : RecyclerView.Adapter<
         return ViewHolder(binding)
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -38,11 +40,13 @@ class DiscountCodeAdapter (var listner : OnClickListner) : RecyclerView.Adapter<
         holder.binding.editImag.setOnClickListener {
             holder.binding.codeText.isEnabled = true
             holder.binding.editImag.visibility = ImageView.GONE
+            holder.binding.codeText.isPressed = true
             holder.binding.confirmImag.visibility = ImageView.VISIBLE
         }
         holder.binding.confirmImag.setOnClickListener{
             currentItem.code = holder.binding.codeText.text.toString()
             holder.binding.codeText.isEnabled = false
+            holder.binding.codeText.isPressed = false
             holder.binding.editImag.visibility = ImageView.VISIBLE
             holder.binding.confirmImag.visibility = ImageView.GONE
             listner.onClickEdit(currentItem,"EDIT")

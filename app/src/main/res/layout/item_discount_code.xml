@@ -16,6 +16,19 @@
     android:layout_margin="15dp">
 
 
+    <TextView
+        android:id="@+id/discount_code_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="DiscountCode :"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:background="@android:color/transparent"
         android:enabled="false"
@@ -27,9 +40,22 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/constraint_discount"/>
+        app:layout_constraintStart_toEndOf="@id/discount_code_text"
+        app:layout_constraintTop_toTopOf="@id/discount_code_text"/>
 
+
+    <TextView
+        android:id="@+id/Usage_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Usage Count :"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/discount_code_text" />
     <TextView
         android:id="@+id/usage_count_text"
         android:layout_width="wrap_content"
@@ -40,7 +66,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/Usage_text"
         app:layout_constraintTop_toBottomOf="@id/code_text"/>
     <ImageView
         android:src="@drawable/delete"

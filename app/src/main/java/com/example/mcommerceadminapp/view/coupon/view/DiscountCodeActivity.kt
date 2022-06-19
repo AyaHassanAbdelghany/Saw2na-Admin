@@ -3,6 +3,7 @@ package com.example.mcommerceadminapp.view.coupon.view
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -42,6 +43,7 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
 
         discountCodeVM.getAllDiscountCode(idIntent)
         discountCodeVM.allDiscountCode.observe(this){
+            binding.loadingProgressBar.visibility = View.INVISIBLE
             discountCodeAdapter.setData(it)
             binding.discountCodeRecycler.adapter = discountCodeAdapter
         }

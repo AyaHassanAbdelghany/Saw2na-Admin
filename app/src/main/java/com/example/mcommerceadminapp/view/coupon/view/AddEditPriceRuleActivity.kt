@@ -13,6 +13,7 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditPriceRuleBinding
     private  var startDate :String = ""
+    private  var endDate :String = ""
     private lateinit var type :String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,27 +23,44 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
         setContentView(binding.root)
 
         type = intent.getStringExtra("TYPE").toString()
-        val today = Calendar.getInstance()
+        val startToday = Calendar.getInstance()
+        val endToday = Calendar.getInstance()
+
         when (type) {
             "EDIT" -> {
                 binding.addEditBtn.text = "Edit"
                 binding.titleText.setText(intent.getStringExtra("title"))
                 binding.valueText.setText(intent.getStringExtra("value"))
                 binding.usageLimitText.setText(intent.getStringExtra("usageLimit"))
+
                 val spf = SimpleDateFormat("yyyy-MM-dd")
                 startDate = spf.format(spf.parse(intent.getStringExtra("startAt")))
                 var date = startDate.split("-")
-                today.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
+                startToday.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
 
+                endDate = spf.format(spf.parse(intent.getStringExtra("endAt")))
+               date = endDate.split("-")
+                endToday.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
             }
         }
 
+        binding.endDatePicker.init(
+            endToday.get(Calendar.YEAR), endToday.get(Calendar.MONTH),
+            endToday.get(Calendar.DAY_OF_MONTH)
+        )
+        { view, year, month, day ->
+            val month = month
+            var cal = Calendar.getInstance()
+            cal.set(year, month, day)
+            val spf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+            endDate = spf.format(cal.time)
+        }
 
-        binding.datePicker.init(
-            today.get(Calendar.YEAR), today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH)
-
-        ) { view, year, month, day ->
+        binding.startDatePicker.init(
+            startToday.get(Calendar.YEAR), startToday.get(Calendar.MONTH),
+            startToday.get(Calendar.DAY_OF_MONTH)
+        )
+        { view, year, month, day ->
             val month = month
             var cal = Calendar.getInstance()
             cal.set(year, month, day)
@@ -53,33 +71,62 @@ class AddEditPriceRuleActivity :AppCompatActivity() {
         binding.addEditBtn.setOnClickListener {
             when (type) {
                 "EDIT" -> {
-                    val intentEdit = Intent()
-                    intentEdit.putExtra("title", binding.titleText.text.toString())
-                    intentEdit.putExtra("value", binding.valueText.text.toString())
-                    intentEdit.putExtra("usageLimit", binding.usageLimitText.text.toString())
-                    intentEdit.putExtra("startAt", startDate)
-                    intentEdit.putExtra("id", intent.getStringExtra("id"))
+                    if (inputIsValid()) {
+                        val intentEdit = Intent()
+                        intentEdit.putExtra("title", binding.titleText.text.toString())
+                        intentEdit.putExtra("value", binding.valueText.text.toString())
+                        intentEdit.putExtra("usageLimit", binding.usageLimitText.text.toString())
+                        intentEdit.putExtra("startAt", startDate)
+                        intentEdit.putExtra("endAt", endDate)
 
-                    setResult(2, intentEdit)
-                    finish()
+                        intentEdit.putExtra("id", intent.getStringExtra("id"))
+
+                        setResult(2, intentEdit)
+                        finish()
+                    }
                 }
                 "ADD" -> {
-                    if (binding.titleText.text.isNotEmpty()
-                        && binding.valueText.text.isNotEmpty()
-                        && binding.usageLimitText.text.isNotEmpty()
-                        && startDate.isNotEmpty()
-                    ) {
+                    if (inputIsValid()) {
 
                         val intent = Intent()
                         intent.putExtra("title", binding.titleText.text.toString())
                         intent.putExtra("value", "-"+binding.valueText.text.toString())
                         intent.putExtra("usageLimit", binding.usageLimitText.text.toString())
                         intent.putExtra("startAt", startDate)
+                        intent.putExtra("endAt", endDate)
+
                         setResult(1, intent)
                         finish()
                     }
                 }
             }
         }
+    }
+
+    private fun inputIsValid() :Boolean{
+        var flag = true
+        if (binding.titleText.text.isEmpty()){
+                binding.titleText.error = "not valid"
+                flag = false
+            }
+            if( binding.valueText.text.isEmpty()){
+                    binding.valueText.error = "not valid"
+                    flag = false
+            }
+            if( binding.usageLimitText.text.isEmpty())
+            {
+                binding.usageLimitText.error = "not valid"
+                flag = false
+            }
+           if( startDate.isEmpty())
+           {
+               binding.startDateTxt.error = "not valid"
+               flag = false
+           }
+           if( endDate.isEmpty()){
+               binding.endDateTxt.error = "not valid"
+               flag = false
+           }
+        return  flag
     }
 }
