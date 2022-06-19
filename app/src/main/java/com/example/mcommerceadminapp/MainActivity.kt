@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mcommerceadminapp.databinding.ActivityMainBinding
+import com.example.mcommerceadminapp.network.MyConnectivityManager
 import com.example.mcommerceadminapp.view.coupon.view.PriceRuleActivity
 import com.example.mcommerceadminapp.view.inventory.view.InventoryActivity
 import com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.inventoryBtn.setOnClickListener {
             startActivity(Intent(this, InventoryActivity::class.java))
         }
+
 
     }
 }
