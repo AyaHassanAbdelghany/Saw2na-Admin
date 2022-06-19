@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceadminapp.databinding.ActivityProductsBinding
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
+import com.example.mcommerceadminapp.network.MyConnectivityManager
 import com.example.mcommerceadminapp.pojo.products.Products
 import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsAdapter
 import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsCommunicator
@@ -15,7 +16,6 @@ import com.example.mcommerceadminapp.view.products.all_products.view.add_product
 import com.example.mcommerceadminapp.view.products.all_products.view_model.ProductsViewModel
 import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
 import com.example.mcommerceadminapp.view.products.product_detail.view.ProductDetail
-import com.google.gson.Gson
 
 class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
     private lateinit var binding : ActivityProductsBinding
@@ -41,12 +41,18 @@ class ProductsActivity : AppCompatActivity() , ProductsCommunicator {
             adapter.setData(it)
         }
 
-
-
         viewModel.getAllProduct()
 
         binding.addProductButton.setOnClickListener {
             startActivityForResult(Intent(this,AddNewProductActivity::class.java),2)
+        }
+
+        MyConnectivityManager.state.observe(this){
+            if (it){
+
+            }else{
+
+            }
         }
 
 
