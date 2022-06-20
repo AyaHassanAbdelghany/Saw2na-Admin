@@ -21,6 +21,7 @@ import com.example.mcommerceadminapp.view.products.product_detail.view.ProductDe
 class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
     private lateinit var binding: ActivityProductsBinding
     private lateinit var viewModel: ProductsViewModel
+    private var isConnected = true
     val REQUEST_CODE = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,12 +49,14 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 viewModel.getAllProduct()
+                isConnected = true
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewProducts.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
@@ -80,17 +83,17 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
                 product.vendor = data.getStringExtra("vendor")
                 product.productType = data.getStringExtra("product_type")
 
-                viewModel.addProduct(product)
+                if (isConnected)
+                    viewModel.addProduct(product)
 
             }
         }
     }
 
-    override fun setDefaultAddress(addressID: String) {
-    }
 
     override fun deleteProduct(productID: String) {
-        viewModel.deleteProductByID(productID)
+        if (isConnected)
+            viewModel.deleteProductByID(productID)
     }
 
     override fun showDetails(product: String) {
