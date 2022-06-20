@@ -22,13 +22,14 @@ class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
 
     lateinit var binding: ActivityInventoryBinding
     private lateinit var viewModel: InventoryViewModel
+    private lateinit var adapter:InventoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInventoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = InventoryAdapter(this,this)
+        adapter = InventoryAdapter(this,this)
         val llm = LinearLayoutManager(this)
         llm.orientation = LinearLayoutManager.VERTICAL
 
@@ -39,12 +40,6 @@ class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
 
         viewModel = ViewModelProvider(this,factory)[InventoryViewModel::class.java]
 
-        viewModel.products.observe(this){
-            adapter.setData(it)
-            TransitionManager.beginDelayedTransition( binding.recycleViewInventory, Slide())
-            binding.loadingProgressBar.visibility = View.INVISIBLE
-
-        }
 
         MyConnectivityManager.state.observe(this) {
 
@@ -64,6 +59,17 @@ class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.products.removeObservers(this)
+        viewModel.products.observe(this){
+            adapter.setData(it)
+            TransitionManager.beginDelayedTransition( binding.recycleViewInventory, Slide())
+            binding.loadingProgressBar.visibility = View.INVISIBLE
+
+        }
     }
 
     override fun setInventoryLevel(inventoryID:Long,amount:Int) {

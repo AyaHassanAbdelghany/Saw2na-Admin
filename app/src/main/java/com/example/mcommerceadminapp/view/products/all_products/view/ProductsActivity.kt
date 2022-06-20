@@ -17,10 +17,13 @@ import com.example.mcommerceadminapp.view.products.all_products.view.add_product
 import com.example.mcommerceadminapp.view.products.all_products.view_model.ProductsViewModel
 import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
 import com.example.mcommerceadminapp.view.products.product_detail.view.ProductDetail
+import com.google.gson.Gson
 
 class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
     private lateinit var binding: ActivityProductsBinding
     private lateinit var viewModel: ProductsViewModel
+    private var isConnected = true
+    private lateinit var adapter:ProductsAdapter
     val REQUEST_CODE = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,29 +36,25 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
 
         viewModel = ViewModelProvider(this, factory)[ProductsViewModel::class.java]
 
-        val adapter = ProductsAdapter(this, this)
+        adapter = ProductsAdapter(this, this)
         adapter.setData(ArrayList())
 
         binding.recycleViewProducts.adapter = adapter
-        binding.loadingProgressBar.visibility = View.INVISIBLE
 
-        viewModel.products.observe(this) {
-            binding.loadingProgressBar.visibility = View.INVISIBLE
-            adapter.setData(it)
-        }
+
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 viewModel.getAllProduct()
-                binding.loadingProgressBar.visibility = View.VISIBLE
+                isConnected = true
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewProducts.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
-                binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.recycleViewProducts.visibility = View.INVISIBLE
             }
@@ -66,6 +65,16 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
             startActivityForResult(Intent(this, AddNewProductActivity::class.java), 2)
         }
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.products.removeObservers(this)
+        viewModel.products.observe(this) {
+            binding.loadingProgressBar.visibility = View.INVISIBLE
+            adapter.setData(it)
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -80,23 +89,23 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
                 product.vendor = data.getStringExtra("vendor")
                 product.productType = data.getStringExtra("product_type")
 
-                viewModel.addProduct(product)
+                if (isConnected)
+                    viewModel.addProduct(product)
 
             }
         }
     }
 
-    override fun setDefaultAddress(addressID: String) {
-    }
 
     override fun deleteProduct(productID: String) {
-        viewModel.deleteProductByID(productID)
+        if (isConnected)
+            viewModel.deleteProductByID(productID)
     }
 
     override fun showDetails(product: String) {
-        val intent = Intent(this, ProductDetail::class.java)
-        intent.putExtra("product", product)
-        //  startActivity(intent)
+       val intent = Intent(this,ProductDetail::class.java)
+        intent.putExtra("product",product)
+        startActivity(intent)
     }
 
 }

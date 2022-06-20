@@ -32,6 +32,8 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
     private lateinit var discountCodeVMFactory: DiscountCodeViewModelFactory
     private lateinit var discountCodeAdapter : DiscountCodeAdapter
     private lateinit var idIntent :String
+    private var isConnected = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +58,7 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
 
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                isConnected = true
                 discountCodeVM.getAllDiscountCode(idIntent)
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.noNetworkLayout.visibility = View.INVISIBLE
@@ -63,6 +66,7 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
                 binding.discountCodeRecycler.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
@@ -90,6 +94,7 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
            .setPositiveButton("OK") { dialog, id -> // get user input and set it to result
                // edit text
                val code = input.getText().toString()
+               if (isConnected)
                discountCodeVM.createDiscountCode(idIntent, DiscountCodes(code = code))
 
            }
@@ -111,11 +116,13 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
     }
 
     override fun onClick(id: String?,type:String) {
+        if (isConnected)
         discountCodeVM.deleteDiscountCodeID(this.idIntent , id.toString())
     }
 
     override fun <T> onClickEdit(typeObject: T, type: String) {
         val discountCode = typeObject as DiscountCodes
+        if (isConnected)
         discountCodeVM.updateDiscountCode(this.idIntent, discountCode.id.toString(),discountCode)
 
     }

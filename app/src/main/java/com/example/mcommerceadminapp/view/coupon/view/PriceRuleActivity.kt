@@ -22,6 +22,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
     private lateinit var couponVM: CouponViewModel
     private lateinit var couponVMFactory: CouponViewModelFactory
     private lateinit var priceRuleAdapter :PriceRuleAdapter
+    private var isConnected = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
 
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                isConnected = true
                 couponVM.getAllPriceRules()
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.noNetworkLayout.visibility = View.INVISIBLE
@@ -48,6 +50,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
                 binding.priceRuleRecycler.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
@@ -81,6 +84,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
                 priceRule.startsAt = data.getStringExtra("startAt")
                 priceRule.endsAt = data.getStringExtra("endAt")
 
+                if (isConnected)
                 couponVM.createPriceRule(priceRule)
             }
         }
@@ -94,6 +98,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
                 priceRule.startsAt = data.getStringExtra("startAt")
                 priceRule.endsAt = data.getStringExtra("endAt")
 
+                if (isConnected)
                 couponVM.updatePriceRule(data.getStringExtra("id").toString(),priceRule)
             }
         }
@@ -110,6 +115,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
     }
     override fun onClick(id: String?,type:String) {
         if(type == "DELETE") {
+            if (isConnected)
             couponVM.deletePriceRuleID(id.toString())
         }
         else{
