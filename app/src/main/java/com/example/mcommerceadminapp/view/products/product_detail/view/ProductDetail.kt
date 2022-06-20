@@ -4,15 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.mcommerceadminapp.databinding.ActivityProductDetailBinding
 import com.example.mcommerceadminapp.model.Keys
-import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
-import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
 import com.example.mcommerceadminapp.pojo.products.Products
-import com.example.mcommerceadminapp.pojo.products.Variants
-import com.example.mcommerceadminapp.view.products.product_detail.viewmodel.ProductDetailVM
-import com.example.mcommerceadminapp.view.products.product_detail.viewmodelfactory.ProductDetailVMFactory
 import com.example.mcommerceapp.view.ui.product_detail.ImageSlideAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.ColorAdapter
 import com.example.mcommerceapp.view.ui.product_detail.adapter.OnClickListener
@@ -26,14 +20,9 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
     private lateinit var imageSliderPager: ImageSlideAdapter
     private lateinit var sizeAdapter: SizeAdapter
     lateinit var colorAdapter: ColorAdapter
-    private lateinit var detailVM: ProductDetailVM
-    private lateinit var detailVMFactory: ProductDetailVMFactory
 
     private lateinit var color: String
     private lateinit var size: String
-    private lateinit var image: String
-    private var id: Long = -1
-    private lateinit var variant: ArrayList<Variants>
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,10 +32,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         supportActionBar?.hide()
 
-        detailVMFactory =
-            ProductDetailVMFactory(ProductsRepo.getInstance(ProductsRemoteSource.getInstance()))
-        detailVM = ViewModelProvider(this, detailVMFactory)[ProductDetailVM::class.java]
-
         val intent = intent.getStringExtra("product")
 
         Log.e("Product Details : ", intent.toString())
@@ -55,10 +40,6 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         val product: Products = gson.fromJson(intent, Products::class.java)
 
         Log.e("Product Details : ", product.toString())
-
-        if (intent != null) {
-            detailVM.getProductDetail(intent)
-        }
 
         binding.toolbar.title = product.title
 
@@ -108,12 +89,4 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
         this.size = size
     }
 
-//    private fun getVariant(variant: ArrayList<Variants>, color: String, size: String): Long {
-//        variant.forEach {
-//            if (it.option1 == size && it.option2 == color) {
-//                return it.id!!
-//            }
-//        }
-//        return variant[0].id!!
-//    }
 }
