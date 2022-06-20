@@ -23,6 +23,7 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
     private lateinit var binding: ActivityProductsBinding
     private lateinit var viewModel: ProductsViewModel
     private var isConnected = true
+    private lateinit var adapter:ProductsAdapter
     val REQUEST_CODE = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,23 +36,18 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
 
         viewModel = ViewModelProvider(this, factory)[ProductsViewModel::class.java]
 
-        val adapter = ProductsAdapter(this, this)
+        adapter = ProductsAdapter(this, this)
         adapter.setData(ArrayList())
 
         binding.recycleViewProducts.adapter = adapter
-        binding.loadingProgressBar.visibility = View.INVISIBLE
 
-        viewModel.products.observe(this) {
-            binding.loadingProgressBar.visibility = View.INVISIBLE
-            adapter.setData(it)
-        }
+
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 viewModel.getAllProduct()
                 isConnected = true
-                binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewProducts.visibility = View.VISIBLE
@@ -59,7 +55,6 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
-                binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.recycleViewProducts.visibility = View.INVISIBLE
             }
@@ -71,6 +66,15 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.products.removeObservers(this)
+        viewModel.products.observe(this) {
+            binding.loadingProgressBar.visibility = View.INVISIBLE
+            adapter.setData(it)
+        }
     }
 
     @Deprecated("Deprecated in Java")
