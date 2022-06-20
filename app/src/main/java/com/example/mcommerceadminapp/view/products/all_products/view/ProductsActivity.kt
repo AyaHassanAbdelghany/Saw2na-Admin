@@ -17,6 +17,7 @@ import com.example.mcommerceadminapp.view.products.all_products.view.add_product
 import com.example.mcommerceadminapp.view.products.all_products.view_model.ProductsViewModel
 import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
 import com.example.mcommerceadminapp.view.products.product_detail.view.ProductDetail
+import com.google.gson.Gson
 
 class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
     private lateinit var binding: ActivityProductsBinding
@@ -69,6 +70,7 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
             startActivityForResult(Intent(this, AddNewProductActivity::class.java), 2)
         }
 
+
     }
 
     @Deprecated("Deprecated in Java")
@@ -97,9 +99,9 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
     }
 
     override fun showDetails(product: String) {
-        val intent = Intent(this, ProductDetail::class.java)
-        intent.putExtra("product", product)
-        //  startActivity(intent)
+       val intent = Intent(this,ProductDetail::class.java)
+        intent.putExtra("product",product)
+        startActivity(intent)
     }
 
 }
