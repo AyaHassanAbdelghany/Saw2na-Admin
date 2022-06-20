@@ -1,6 +1,7 @@
 package com.example.mcommerceadminapp.model.remote_source.coupon
 
 import com.example.mcommerceadminapp.model.Keys
+import com.example.mcommerceadminapp.model.shopify_repository.Result
 import com.example.mcommerceadminapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceadminapp.network.coupon.CouponService
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
@@ -9,13 +10,26 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.RequestBody
 
-class CouponRemoteSource :ICoupon {
+class CouponRemoteSource private constructor():RemoteSource {
+
+
 
     private val api: CouponService =
         ShopifyRetrofitHelper.getInstance().create(CouponService::class.java)
     private val gson = Gson()
+
+
+    companion object {
+        private var remoteSource: CouponRemoteSource? = null
+        fun getInstance(): CouponRemoteSource {
+            return remoteSource ?: CouponRemoteSource()
+        }
+    }
+
 
     override suspend fun createPriceRule(req: RequestBody): PriceRules {
         val res = api.createPriceRule(Keys.PRICE_RULES_JSON,req)
@@ -24,12 +38,14 @@ class CouponRemoteSource :ICoupon {
             object : TypeToken<PriceRules>() {}.type
         )
     }
-    override suspend fun getAllPriceRules(): ArrayList<PriceRules> {
+
+    override suspend fun getAllPriceRules():ArrayList<PriceRules>  {
         val res = api.getAllPriceRules(Keys.PRICE_RULES_JSON)
-        return gson.fromJson(
-            res.body()!!.get("price_rules") as JsonArray,
-            object : TypeToken<ArrayList<PriceRules>>() {}.type
-        )
+            return gson.fromJson(
+                    res.body()!!.get("price_rules") as JsonArray,
+                    object : TypeToken<ArrayList<PriceRules>>() {}.type
+                )
+
     }
     override suspend fun updatePriceRule(priceRuleID: String, req: RequestBody) {
         val res = api.updatePriceRule(Keys.PRICE_RULES,priceRuleID,req)
@@ -41,7 +57,6 @@ class CouponRemoteSource :ICoupon {
     override suspend fun deletePriceRuleID(priceRuleID:String) {
          api.deletePriceRule(Keys.PRICE_RULES,priceRuleID)
     }
-
     override suspend fun getAllDiscountCode(priceRuleID:String) : ArrayList<DiscountCodes> {
         val res = api.getAllDiscountCode(Keys.PRICE_RULES,priceRuleID,Keys.DISCOUNT_CODE_JSON)
         return gson.fromJson(
@@ -49,7 +64,6 @@ class CouponRemoteSource :ICoupon {
             object : TypeToken<ArrayList<DiscountCodes>>() {}.type
         )
     }
-
    override suspend fun deleteDiscountCodeID(priceRuleID:String ,discountCodeID: String)
     {
         api.deleteDiscountCode(Keys.PRICE_RULES,priceRuleID,Keys.DISCOUNT_CODE,discountCodeID)

@@ -1,31 +1,39 @@
 package com.example.mcommerceadminapp.model.shopify_repository.coupon
 
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.mcommerceadminapp.model.remote_source.coupon.ICoupon
+import com.example.mcommerceadminapp.model.remote_source.coupon.RemoteSource
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.internal.synchronized
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import com.example.mcommerceadminapp.model.shopify_repository.Result
 
-class CouponRepo private  constructor(private var iCouponRemoteSource : ICoupon):ICouponRepo {
+
+class CouponRepo private  constructor(private var iCouponRemoteSource : RemoteSource):ICouponRepo {
 
     companion object {
-        private val couponRepo: CouponRepo? = null
+       @Volatile private var couponRepo: CouponRepo? = null
         val allPriceRules = MutableLiveData<ArrayList<PriceRules>>()
         val allDiscountCode = MutableLiveData<ArrayList<DiscountCodes>>()
 
-        fun getInstance(iCoupon: ICoupon): CouponRepo {
-            return couponRepo ?: CouponRepo(iCoupon)
+        @OptIn(InternalCoroutinesApi::class)
+        fun getInstance(iCoupon: RemoteSource): CouponRepo {
+            return couponRepo ?:synchronized(this){
+                CouponRepo(iCoupon)
+            }
         }
     }
 
-    override suspend fun getAllPriceRules() {
-        val res = iCouponRemoteSource.getAllPriceRules()
-        res.reverse()
-        allPriceRules.postValue(res)
+    override suspend fun getAllPriceRules()   {
+            var res = iCouponRemoteSource.getAllPriceRules()
+            res.reverse()
+            allPriceRules.postValue(res)
     }
 
     override suspend fun createPriceRule(priceRule: PriceRules) {

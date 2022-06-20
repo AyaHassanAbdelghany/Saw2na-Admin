@@ -104,7 +104,7 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
         discountCodeAdapter = DiscountCodeAdapter( this)
         binding.discountCodeRecycler.adapter = discountCodeAdapter
         discountCodeVMFactory = DiscountCodeViewModelFactory(
-            CouponRepo.getInstance(CouponRemoteSource()),
+            CouponRepo.getInstance(CouponRemoteSource.getInstance()),
         )
         discountCodeVM = ViewModelProvider(this, discountCodeVMFactory)[DiscountCodeViewModel::class.java]
 

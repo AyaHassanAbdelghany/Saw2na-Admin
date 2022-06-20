@@ -103,7 +103,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         priceRuleAdapter = PriceRuleAdapter( this)
         binding.priceRuleRecycler.adapter = priceRuleAdapter
         couponVMFactory = CouponViewModelFactory(
-            CouponRepo.getInstance(CouponRemoteSource()),
+            CouponRepo.getInstance(CouponRemoteSource.getInstance()),
         )
         couponVM = ViewModelProvider(this, couponVMFactory)[CouponViewModel::class.java]
 
