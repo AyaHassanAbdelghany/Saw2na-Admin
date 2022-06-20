@@ -20,6 +20,7 @@ import com.example.mcommerceadminapp.view.coupon.view.adapter.OnClickListner
 import com.example.mcommerceadminapp.view.coupon.viewmodel.DiscountCodeViewModel
 import com.example.mcommerceadminapp.view.coupon.viewmodel.DiscountCodeViewModelFactory
 import com.example.mcommerceadminapp.MainActivity
+import com.example.mcommerceadminapp.network.MyConnectivityManager
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 
 
@@ -41,7 +42,6 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
         init()
         idIntent = intent.getStringExtra("PRICERULE_ID").toString()
 
-        discountCodeVM.getAllDiscountCode(idIntent)
         discountCodeVM.allDiscountCode.observe(this){
             binding.loadingProgressBar.visibility = View.INVISIBLE
             discountCodeAdapter.setData(it)
@@ -51,6 +51,25 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
         binding.addBtn.setOnClickListener{
             showDialog()
         }
+
+        MyConnectivityManager.state.observe(this) {
+
+            if (it) {
+                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
+                discountCodeVM.getAllDiscountCode(idIntent)
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.noNetworkLayout.visibility = View.INVISIBLE
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.discountCodeRecycler.visibility = View.VISIBLE
+            } else {
+                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
+                binding.noNetworkLayout.visibility = View.VISIBLE
+                binding.loadingProgressBar.visibility = View.INVISIBLE
+                binding.loadingProgressBar.visibility = View.INVISIBLE
+                binding.discountCodeRecycler.visibility = View.INVISIBLE
+            }
+        }
+
 
     }
 
