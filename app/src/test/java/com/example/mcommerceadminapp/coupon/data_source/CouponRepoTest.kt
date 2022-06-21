@@ -23,29 +23,52 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 class CouponRepoTest :TestCase(){
 
-private lateinit var couponRepo : CouponRepo
-private val pricRule = PriceRules(title = "SUMMERSALE10OFF")
+     private lateinit var couponRepo : CouponRepo
+    private lateinit var remotSource : FakeDataSource
+
+    private val pricRuleActual = PriceRules(title = "SUMMERSALE10OFF")
+    private val allPriceRuleActual = listOf(pricRuleActual)
+
+    private val pricRuleExpected = PriceRules(title = "SUMMERSALE10OF")
+    private val allPriceRuleExpected = listOf(pricRuleExpected)
+
+    private val discountCodeActual = DiscountCodes(code = "aya")
+    private val allDiscountCodeActual = listOf(discountCodeActual)
+
+    private val discountCodeExpected = DiscountCodes(code = "ayaa")
+    private val allDiscountCodeExpected = listOf(discountCodeExpected)
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun createRepository() {
-    // Get a reference to the class under test
+        remotSource =  FakeDataSource.getInstance()
         couponRepo = CouponRepo.getInstance(
-        FakeDataSource.getInstance()
+           remotSource
     )
-   }
+        remotSource.setPriceRule(allPriceRuleActual.toMutableList())
+        remotSource.setDiscountCode(allDiscountCodeActual.toMutableList())
+
+    }
 
 
-   @Test
-   fun getAllPriceRules_postValueInAllPriceRules()  =  runBlocking {
-    //Given repo
-       couponRepo.getAllPriceRules()
-    // Then
-       val value = CouponRepo.allPriceRules.getOrAwaitValue()
-       MatcherAssert.assertThat(
-           value, CoreMatchers.nullValue())
-       //Assert.assertEquals(allPriceRules.data.get(0).title,pricRule.title )
-   }
+//   @Test
+//   fun getAllPriceRules_postValueInAllPriceRules()  =  runBlocking {
+//    //Given repo
+//       couponRepo.getAllPriceRules()
+//    // Then
+//       val value = CouponRepo.allPriceRules.getOrAwaitValue()
+//       junit.framework.TestCase.assertEquals((allPriceRuleExpected.get(0).title),value.get(0).title)
+//   }
+
+    @Test
+    fun getAllDiscountCode_priceRuleID_postValueInAllDiscountCode()  =  runBlocking {
+        //Given repo
+        couponRepo.getAllDiscountCode("992172277898")
+        // Then
+        val value = CouponRepo.allDiscountCode.getOrAwaitValue()
+        junit.framework.TestCase.assertEquals((allDiscountCodeExpected.get(0).code),value.get(0).code)
+
+    }
 }

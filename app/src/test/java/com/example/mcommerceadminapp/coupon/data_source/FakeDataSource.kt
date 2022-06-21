@@ -1,5 +1,6 @@
 package com.example.mcommerceadminapp.coupon.data_source
 
+import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceadminapp.model.remote_source.coupon.RemoteSource
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
@@ -10,7 +11,8 @@ import com.example.mcommerceadminapp.network.coupon.CouponService
 import com.google.gson.Gson
 
 
-class FakeDataSource (var list :MutableList<PriceRules>? = mutableListOf()): RemoteSource{
+class FakeDataSource  private constructor(): RemoteSource{
+
 
 
     companion object {
@@ -19,12 +21,27 @@ class FakeDataSource (var list :MutableList<PriceRules>? = mutableListOf()): Rem
             return remoteSource ?: FakeDataSource()
         }
     }
-    override suspend fun createPriceRule(req: RequestBody): PriceRules {
-        TODO("Not yet implemented")
+
+    var listPriceRule : MutableList<PriceRules> = mutableListOf()
+    var listDiscountCode: MutableList<DiscountCodes> = mutableListOf()
+
+    fun setPriceRule(priceRules :MutableList<PriceRules>){
+        listPriceRule = priceRules
+    }
+
+    fun setDiscountCode(discountCode :MutableList<DiscountCodes>){
+        listDiscountCode = discountCode
+    }
+
+    override suspend fun getAllDiscountCode(priceRuleID: String): ArrayList<DiscountCodes> {
+        listDiscountCode.let {
+            return ArrayList(it)
+        }
+        return ArrayList()
     }
 
     override suspend fun getAllPriceRules(): ArrayList<PriceRules> {
-        list.let {
+        listPriceRule.let {
             return ArrayList(it)
         }
         return ArrayList()
@@ -38,11 +55,11 @@ class FakeDataSource (var list :MutableList<PriceRules>? = mutableListOf()): Rem
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllDiscountCode(priceRuleID: String): ArrayList<DiscountCodes> {
+    override suspend fun deleteDiscountCodeID(priceRuleID: String, discountCodeID: String) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteDiscountCodeID(priceRuleID: String, discountCodeID: String) {
+    override suspend fun createPriceRule(req: RequestBody): PriceRules {
         TODO("Not yet implemented")
     }
 
