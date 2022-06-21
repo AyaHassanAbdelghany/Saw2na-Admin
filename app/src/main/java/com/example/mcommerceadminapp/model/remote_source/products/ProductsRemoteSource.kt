@@ -10,7 +10,7 @@ import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import okhttp3.RequestBody
 
-class ProductsRemoteSource private constructor() {
+class ProductsRemoteSource private constructor() :IProductRemoteSource{
 
     private val gson = Gson()
     private val api: ProductsService =
@@ -24,7 +24,7 @@ class ProductsRemoteSource private constructor() {
     }
 
 
-    suspend fun getAllProducts(): ArrayList<Products> {
+    override suspend fun getAllProducts(): ArrayList<Products> {
         val res = api.getAllProducts()
         Log.d("ProductsRemoteSource", "getAllProducts:  $res")
         return gson.fromJson(
@@ -33,7 +33,7 @@ class ProductsRemoteSource private constructor() {
         )
     }
 
-    suspend fun addProduct(requestBody: RequestBody): Products {
+   override suspend fun addProduct(requestBody: RequestBody): Products {
         val res = api.addProducts(requestBody)
         Log.d("ProductsRemoteSource", "addProduct:  $res")
         return gson.fromJson(
@@ -42,13 +42,13 @@ class ProductsRemoteSource private constructor() {
         )
     }
 
-    suspend fun deleteProductByID(productID:String){
+    override suspend fun deleteProductByID(productID:String){
         val res = api.deleteProductByID(productID)
         Log.d("ProductsRemoteSource", "deleteProductByID:  $res")
 
     }
 
-    suspend fun setInventoryLevel(requestBody: RequestBody){
+    override suspend fun setInventoryLevel(requestBody: RequestBody){
         val res = api.setInventoryLevel(requestBody)
         Log.d("ProductsRemoteSource", "setInventoryLevel:  $res")
 

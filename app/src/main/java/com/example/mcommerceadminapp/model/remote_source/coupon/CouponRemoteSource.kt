@@ -1,7 +1,6 @@
 package com.example.mcommerceadminapp.model.remote_source.coupon
 
 import com.example.mcommerceadminapp.model.Keys
-import com.example.mcommerceadminapp.model.shopify_repository.Result
 import com.example.mcommerceadminapp.network.ShopifyRetrofitHelper
 import com.example.mcommerceadminapp.network.coupon.CouponService
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
@@ -10,11 +9,9 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import okhttp3.RequestBody
 
-class CouponRemoteSource private constructor():RemoteSource {
+class CouponRemoteSource private constructor():ICouponRemoteSource {
 
 
 
@@ -33,6 +30,7 @@ class CouponRemoteSource private constructor():RemoteSource {
 
     override suspend fun createPriceRule(req: RequestBody): PriceRules {
         val res = api.createPriceRule(Keys.PRICE_RULES_JSON,req)
+     //   if ((res.body()!!.get("price_rule")as JsonObject).is )
         return gson.fromJson(
             res.body()!!.get("price_rule") as JsonObject,
             object : TypeToken<PriceRules>() {}.type

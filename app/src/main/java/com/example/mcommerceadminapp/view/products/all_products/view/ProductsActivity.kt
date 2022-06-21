@@ -2,6 +2,7 @@ package com.example.mcommerceadminapp.view.products.all_products.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -83,14 +84,12 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
 
         if (requestCode == 2) {
 
-            val product = Products()
             if (data != null) {
-                product.title = data.getStringExtra("title")
-                product.vendor = data.getStringExtra("vendor")
-                product.productType = data.getStringExtra("product_type")
-
-                if (isConnected)
-                    viewModel.addProduct(product)
+                val res = data.getStringExtra("product")
+                val product = Gson().fromJson(res,Products::class.java)
+                Log.e("TAG", "onActivityResult: ${Gson().toJson(product)}", )
+               // if (isConnected)
+                 //   viewModel.addProduct(product)
 
             }
         }

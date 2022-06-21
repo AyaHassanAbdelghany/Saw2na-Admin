@@ -1,24 +1,19 @@
 package com.example.mcommerceadminapp.coupon.data_source
 
-import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
-import com.example.mcommerceadminapp.model.remote_source.coupon.RemoteSource
+import com.example.mcommerceadminapp.model.remote_source.coupon.ICouponRemoteSource
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 import okhttp3.RequestBody
-import com.example.mcommerceadminapp.model.shopify_repository.Result
-import com.example.mcommerceadminapp.network.ShopifyRetrofitHelper
-import com.example.mcommerceadminapp.network.coupon.CouponService
-import com.google.gson.Gson
 
 
-class FakeDataSource  private constructor(): RemoteSource{
 
+class CouponFakeDataSource  private constructor(): ICouponRemoteSource{
 
 
     companion object {
-        private var remoteSource: FakeDataSource? = null
-        fun getInstance(): FakeDataSource {
-            return remoteSource ?: FakeDataSource()
+        private var remoteSource: CouponFakeDataSource? = null
+        fun getInstance(): CouponFakeDataSource {
+            return remoteSource ?: CouponFakeDataSource()
         }
     }
 

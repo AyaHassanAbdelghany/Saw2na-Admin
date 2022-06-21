@@ -5,7 +5,7 @@ import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 import okhttp3.RequestBody
 
-interface RemoteSource {
+interface ICouponRemoteSource {
 
     suspend fun createPriceRule(req: RequestBody): PriceRules
     suspend fun getAllPriceRules() : ArrayList<PriceRules>

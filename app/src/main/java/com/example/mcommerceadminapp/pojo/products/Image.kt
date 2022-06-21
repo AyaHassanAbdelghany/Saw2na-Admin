@@ -27,5 +27,4 @@ data class Image(
     @SerializedName("admin_graphql_api_id")
     var adminGraphqlApiId: String? = null
 
-
 )
