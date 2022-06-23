@@ -15,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MCommerceAdminApp">
 
-        <activity android:name=".view.coupon.view.PriceRuleActivity"></activity>
-        <activity android:name=".view.coupon.view.DiscountCodeActivity"></activity>
-        <activity android:name=".view.coupon.view.AddEditPriceRuleActivity"></activity>
+        <activity android:name=".view.coupon.view.price_rule.PriceRuleActivity"></activity>
+        <activity android:name=".view.coupon.view.discount_code.DiscountCodeActivity"></activity>
+        <activity android:name=".view.coupon.view.price_rule.AddEditPriceRuleActivity"></activity>
         <activity
             android:name=".view.inventory.view.InventoryActivity"
             android:exported="false" />

@@ -1,13 +1,12 @@
 package com.example.mcommerceadminapp
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mcommerceadminapp.databinding.ActivityMainBinding
 import com.example.mcommerceadminapp.network.MyConnectivityManager
-import com.example.mcommerceadminapp.view.coupon.view.PriceRuleActivity
+import com.example.mcommerceadminapp.view.coupon.view.price_rule.PriceRuleActivity
 import com.example.mcommerceadminapp.view.inventory.view.InventoryActivity
 import com.example.mcommerceadminapp.view.products.all_products.view.ProductsActivity
 
@@ -27,7 +26,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.productsBtn.setOnClickListener {
-            startActivity(Intent(this,ProductsActivity::class.java),ActivityOptions.makeSceneTransitionAnimation(this,binding.productsBtn , " root").toBundle())
+            startActivity(Intent(this,ProductsActivity::class.java))
+//                ,ActivityOptions.makeSceneTransitionAnimation(this,binding.productsBtn ,
+//                    " root").toBundle())
         }
 
         binding.inventoryBtn.setOnClickListener {

@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.example.mcommerceadminapp.databinding.ActivityProductsBinding
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
@@ -25,7 +28,6 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
     private lateinit var viewModel: ProductsViewModel
     private var isConnected = true
     private lateinit var adapter:ProductsAdapter
-    val REQUEST_CODE = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +40,11 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
         viewModel = ViewModelProvider(this, factory)[ProductsViewModel::class.java]
 
         adapter = ProductsAdapter(this, this)
-        adapter.setData(ArrayList())
+        val llm = LinearLayoutManager(this)
+        llm.orientation = LinearLayoutManager.VERTICAL
 
+        binding.recycleViewProducts.layoutManager = llm
         binding.recycleViewProducts.adapter = adapter
-
 
         MyConnectivityManager.state.observe(this) {
 
@@ -49,6 +52,7 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 viewModel.getAllProduct()
                 isConnected = true
+                viewModel.getAllProduct()
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewProducts.visibility = View.VISIBLE
@@ -66,7 +70,9 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
             startActivityForResult(Intent(this, AddNewProductActivity::class.java), 2)
         }
 
-
+        binding.backImage.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onResume() {
@@ -75,6 +81,7 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
         viewModel.products.observe(this) {
             binding.loadingProgressBar.visibility = View.INVISIBLE
             adapter.setData(it)
+            TransitionManager.beginDelayedTransition(binding.recycleViewProducts, Slide())
         }
          if (isConnected)
            viewModel.getAllProduct()
@@ -89,7 +96,7 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
             if (data != null) {
                 val res = data.getStringExtra("product")
                 val product = Gson().fromJson(res,Products::class.java)
-                Log.e("TAG", "onActivityResult: ${Gson().toJson(product)}", )
+                Log.e("TAG", "onActivityResult: ${Gson().toJson(product)}")
                // if (isConnected)
                  //   viewModel.addProduct(product)
 

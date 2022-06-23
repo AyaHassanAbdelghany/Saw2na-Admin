@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.coupon.viewmodel
+package com.example.mcommerceadminapp.view.coupon.viewmodel.discount_code
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
