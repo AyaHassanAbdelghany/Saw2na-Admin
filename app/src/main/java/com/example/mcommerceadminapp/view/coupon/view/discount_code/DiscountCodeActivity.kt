@@ -1,25 +1,22 @@
-package com.example.mcommerceadminapp.view.coupon.view
+package com.example.mcommerceadminapp.view.coupon.view.discount_code
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.R
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.example.mcommerceadminapp.databinding.ActivityDiscountCodeBinding
 import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
-import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 import com.example.mcommerceadminapp.view.coupon.view.adapter.DiscountCodeAdapter
 import com.example.mcommerceadminapp.view.coupon.view.adapter.OnClickListner
-import com.example.mcommerceadminapp.view.coupon.viewmodel.DiscountCodeViewModel
-import com.example.mcommerceadminapp.view.coupon.viewmodel.DiscountCodeViewModelFactory
-import com.example.mcommerceadminapp.MainActivity
+import com.example.mcommerceadminapp.view.coupon.viewmodel.discount_code.DiscountCodeViewModel
+import com.example.mcommerceadminapp.view.coupon.viewmodel.discount_code.DiscountCodeViewModelFactory
 import com.example.mcommerceadminapp.network.MyConnectivityManager
 import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 
@@ -47,13 +44,16 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
         discountCodeVM.allDiscountCode.observe(this){
             binding.loadingProgressBar.visibility = View.INVISIBLE
             discountCodeAdapter.setData(it)
+            TransitionManager.beginDelayedTransition( binding.discountCodeRecycler, Slide())
             binding.discountCodeRecycler.adapter = discountCodeAdapter
         }
 
-        binding.addBtn.setOnClickListener{
+        binding.addDiscountCodeButton.setOnClickListener{
             showDialog()
         }
-
+        binding.backImage.setOnClickListener(){
+            finish()
+        }
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
@@ -73,7 +73,6 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
                 binding.discountCodeRecycler.visibility = View.INVISIBLE
             }
         }
-
 
     }
 

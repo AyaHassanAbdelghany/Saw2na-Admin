@@ -31,9 +31,6 @@ class CouponRepoTest :TestCase(){
     private val discountCodeActual = DiscountCodes(code = "aya")
     private val allDiscountCodeActual = listOf(discountCodeActual)
 
-    private val discountCodeExpected = DiscountCodes(code = "aya")
-    private val allDiscountCodeExpected = listOf(discountCodeExpected)
-
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
@@ -64,6 +61,6 @@ class CouponRepoTest :TestCase(){
         couponRepo.getAllDiscountCode("992172277898")
         // Then
         val value = CouponRepo.allDiscountCode.getOrAwaitValue()
-        assertEquals((allDiscountCodeExpected.get(0).code),value.get(0).code)
+        assertEquals(1,value.count())
     }
 }

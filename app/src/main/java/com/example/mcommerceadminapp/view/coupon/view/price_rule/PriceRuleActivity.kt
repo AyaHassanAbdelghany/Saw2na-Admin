@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.coupon.view
+package com.example.mcommerceadminapp.view.coupon.view.price_rule
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,21 +6,24 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.example.mcommerceadminapp.databinding.ActivityPriceRuleBinding
 import com.example.mcommerceadminapp.model.remote_source.coupon.CouponRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.coupon.CouponRepo
 import com.example.mcommerceadminapp.network.MyConnectivityManager
 import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
+import com.example.mcommerceadminapp.view.coupon.view.discount_code.DiscountCodeActivity
 import com.example.mcommerceadminapp.view.coupon.view.adapter.OnClickListner
 import com.example.mcommerceadminapp.view.coupon.view.adapter.PriceRuleAdapter
-import com.example.mcommerceadminapp.view.coupon.viewmodel.CouponViewModel
-import com.example.mcommerceadminapp.view.coupon.viewmodel.CouponViewModelFactory
+import com.example.mcommerceadminapp.view.coupon.viewmodel.price_rule.PriceRuleViewModel
+import com.example.mcommerceadminapp.view.coupon.viewmodel.price_rule.PriceRuleViewModelFactory
 
 class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
 
     private lateinit var binding: ActivityPriceRuleBinding
-    private lateinit var couponVM: CouponViewModel
-    private lateinit var couponVMFactory: CouponViewModelFactory
+    private lateinit var couponVM: PriceRuleViewModel
+    private lateinit var couponVMFactory: PriceRuleViewModelFactory
     private lateinit var priceRuleAdapter :PriceRuleAdapter
     private var isConnected = false
 
@@ -30,12 +33,16 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         binding = ActivityPriceRuleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.addBtn.setOnClickListener{
-            val intent = Intent(this,AddEditPriceRuleActivity::class.java)
+        binding.addPriceRuleButton.setOnClickListener{
+            val intent = Intent(this, AddEditPriceRuleActivity::class.java)
             intent.putExtra("TYPE","ADD")
             startActivityForResult(intent,1)
 
         }
+        binding.backImage.setOnClickListener(){
+            finish()
+        }
+
         init()
 
         MyConnectivityManager.state.observe(this) {
@@ -67,6 +74,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
             if(it !=null) {
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 priceRuleAdapter.setData(it)
+                TransitionManager.beginDelayedTransition( binding.priceRuleRecycler, Slide())
                 binding.priceRuleRecycler.adapter = priceRuleAdapter
             }
         }
@@ -107,10 +115,10 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
     private fun init(){
         priceRuleAdapter = PriceRuleAdapter( this)
         binding.priceRuleRecycler.adapter = priceRuleAdapter
-        couponVMFactory = CouponViewModelFactory(
+        couponVMFactory = PriceRuleViewModelFactory(
             CouponRepo.getInstance(CouponRemoteSource.getInstance()),
         )
-        couponVM = ViewModelProvider(this, couponVMFactory)[CouponViewModel::class.java]
+        couponVM = ViewModelProvider(this, couponVMFactory)[PriceRuleViewModel::class.java]
 
     }
     override fun onClick(id: String?,type:String) {
@@ -127,7 +135,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
     }
 
     override fun <T> onClickEdit(typeObject: T, type: String) {
-        val intent = Intent(this,AddEditPriceRuleActivity::class.java)
+        val intent = Intent(this, AddEditPriceRuleActivity::class.java)
         val priceRule = typeObject as PriceRules
         intent.putExtra("TYPE",type)
         intent.putExtra("title",priceRule.title)

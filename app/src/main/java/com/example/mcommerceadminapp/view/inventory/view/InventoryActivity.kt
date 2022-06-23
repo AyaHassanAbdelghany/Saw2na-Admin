@@ -59,6 +59,9 @@ class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
             }
         }
 
+        binding.backImage.setOnClickListener(){
+            finish()
+        }
     }
 
     override fun onResume() {

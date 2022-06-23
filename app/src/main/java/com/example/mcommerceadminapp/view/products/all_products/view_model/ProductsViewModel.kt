@@ -17,9 +17,10 @@ class ProductsViewModel(private val repo: ProductsRepo) : ViewModel() {
     fun getAllProduct(){
         viewModelScope.launch(Dispatchers.IO) {
             val res = repo.getAllProducts()
-            withContext(Dispatchers.Main){
-                _products.value = res
-            }
+                _products.postValue(res)
+//            withContext(Dispatchers.Main){
+//                _products.value = res
+//            }
         }
     }
 

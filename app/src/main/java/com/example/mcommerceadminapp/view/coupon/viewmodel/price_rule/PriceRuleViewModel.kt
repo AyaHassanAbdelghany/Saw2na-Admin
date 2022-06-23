@@ -1,4 +1,4 @@
-package com.example.mcommerceadminapp.view.coupon.viewmodel
+package com.example.mcommerceadminapp.view.coupon.viewmodel.price_rule
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CouponViewModel (private val iCouponRepo: ICouponRepo) :ViewModel(){
+class PriceRuleViewModel (private val iCouponRepo: ICouponRepo) :ViewModel(){
 
     private val _allPriceRules : MutableLiveData<ArrayList<PriceRules>> = CouponRepo.allPriceRules
     var allPriceRules: LiveData<ArrayList<PriceRules>> = _allPriceRules
