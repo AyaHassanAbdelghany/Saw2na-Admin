@@ -76,6 +76,8 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
             binding.loadingProgressBar.visibility = View.INVISIBLE
             adapter.setData(it)
         }
+         if (isConnected)
+           viewModel.getAllProduct()
     }
 
     @Deprecated("Deprecated in Java")

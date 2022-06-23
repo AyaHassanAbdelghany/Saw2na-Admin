@@ -18,4 +18,7 @@ interface IProductRemoteSource {
 
     suspend fun setInventoryLevel(requestBody: RequestBody)
 
+    suspend fun addProductImage(productID:String,requestBody: RequestBody)
+
+
 }

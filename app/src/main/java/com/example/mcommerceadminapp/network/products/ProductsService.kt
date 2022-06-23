@@ -41,4 +41,14 @@ interface ProductsService {
         @Body requestBody: RequestBody
     ): Response<JsonObject>
 
+    @Headers(
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
+    )
+    @POST("products/{productID}/images.json")
+    suspend fun addProductImage(
+        @Path("productID") productID: String,
+        @Body requestBody: RequestBody
+    ): Response<JsonObject>
+
 }

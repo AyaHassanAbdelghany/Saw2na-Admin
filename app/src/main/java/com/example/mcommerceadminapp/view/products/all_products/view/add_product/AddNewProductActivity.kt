@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -23,8 +22,6 @@ import com.example.mcommerceadminapp.pojo.products.Products
 import com.example.mcommerceadminapp.pojo.products.Variants
 import com.example.mcommerceadminapp.view.products.all_products.view_model.ProductsViewModel
 import com.example.mcommerceadminapp.view.products.all_products.view_model.factory.ProductsViewModelFactory
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -45,6 +42,11 @@ class AddNewProductActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProvider(this, factory)[ProductsViewModel::class.java]
 
+        viewModel.finished.observe(this){
+            if (it){
+                finish()
+            }
+        }
 
         binding.submitBtn.setOnClickListener {
             if (isValid()) {
@@ -54,8 +56,8 @@ class AddNewProductActivity : AppCompatActivity() {
                 products.productType = binding.productTypeEditText.text.toString()
                 products.bodyHtml = binding.descEditText.text.toString()
 
-                val iv: ImageView = binding.productImage as ImageView
-                val bitmap = iv.getDrawable().toBitmap()
+                val iv: ImageView = binding.productImage
+                val bitmap = iv.drawable.toBitmap()
                 val bos = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
                 val bb = bos.toByteArray()
@@ -74,7 +76,8 @@ class AddNewProductActivity : AppCompatActivity() {
                 products.variants.add(variant)
 
                 viewModel.addProduct(products)
-            //    finish()
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.submitBtn.isEnabled = false
             }
         }
 

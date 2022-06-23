@@ -54,4 +54,9 @@ class ProductsRemoteSource private constructor() :IProductRemoteSource{
 
     }
 
+    override suspend fun addProductImage(productID: String, requestBody: RequestBody) {
+        val res = api.addProductImage(productID,requestBody)
+        Log.d("ProductsRemoteSource", "addProductImage:  $res")
+    }
+
 }

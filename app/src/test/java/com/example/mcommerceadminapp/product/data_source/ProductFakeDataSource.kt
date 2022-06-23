@@ -37,4 +37,8 @@ class ProductFakeDataSource private constructor() :IProductRemoteSource {
     override suspend fun setInventoryLevel(requestBody: RequestBody) {
         TODO("Not yet implemented")
     }
+
+    override suspend fun addProductImage(productID: String, requestBody: RequestBody) {
+        TODO("Not yet implemented")
+    }
 }
