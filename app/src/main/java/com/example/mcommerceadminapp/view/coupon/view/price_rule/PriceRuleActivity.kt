@@ -39,7 +39,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
             startActivityForResult(intent,1)
 
         }
-        binding.backImage.setOnClickListener(){
+        binding.backImage.setOnClickListener{
             finish()
         }
 
@@ -49,17 +49,15 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
 
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
-                isConnected = true
+               isConnected = true
                 couponVM.getAllPriceRules()
-                binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.priceRuleRecycler.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
-                isConnected = false
+               isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
-                binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.priceRuleRecycler.visibility = View.INVISIBLE
             }

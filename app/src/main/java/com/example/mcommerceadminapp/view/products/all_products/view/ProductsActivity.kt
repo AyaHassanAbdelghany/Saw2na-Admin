@@ -50,8 +50,8 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
 
             if (it) {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
-                viewModel.getAllProduct()
                 isConnected = true
+                viewModel.getAllProduct()
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewProducts.visibility = View.VISIBLE
@@ -76,13 +76,13 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
 
     override fun onResume() {
         super.onResume()
-        viewModel.products.removeObservers(this)
-        viewModel.products.observe(this) {
-            binding.loadingProgressBar.visibility = View.INVISIBLE
-            adapter.setData(it)
-            TransitionManager.beginDelayedTransition( binding.recycleViewProducts, Slide())
+            viewModel.products.removeObservers(this)
+            viewModel.products.observe(this) {
+                binding.loadingProgressBar.visibility = View.INVISIBLE
+                adapter.setData(it)
+                TransitionManager.beginDelayedTransition(binding.recycleViewProducts, Slide())
+            }
         }
-    }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

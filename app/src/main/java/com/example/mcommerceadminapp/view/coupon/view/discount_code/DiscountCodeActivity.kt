@@ -60,7 +60,6 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
                 Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 isConnected = true
                 discountCodeVM.getAllDiscountCode(idIntent)
-                binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.discountCodeRecycler.visibility = View.VISIBLE
@@ -68,7 +67,6 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
                 Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
-                binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 binding.discountCodeRecycler.visibility = View.INVISIBLE
             }
