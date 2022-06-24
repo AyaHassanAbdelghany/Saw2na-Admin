@@ -52,6 +52,8 @@ class ProductsRepo private constructor(private val source: IProductRemoteSource)
         variantJson.put("option1",products.variants[0].option1)
         variantJson.put("option2",products.variants[0].option2)
         variantJson.put("price",products.variants[0].price)
+        variantJson.put("inventory_management","shopify")
+
         val variantsArray = JSONArray()
         variantsArray.put(variantJson)
 
