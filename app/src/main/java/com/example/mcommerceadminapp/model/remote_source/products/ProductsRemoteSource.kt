@@ -42,6 +42,10 @@ class ProductsRemoteSource private constructor() :IProductRemoteSource{
         )
     }
 
+    override suspend fun addProductImage(requestBody: RequestBody, productID: String) {
+        api.addProductImage(requestBody, productID)
+    }
+
     override suspend fun deleteProductByID(productID:String){
         val res = api.deleteProductByID(productID)
         Log.d("ProductsRemoteSource", "deleteProductByID:  $res")
