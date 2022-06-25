@@ -14,6 +14,8 @@ interface IProductRemoteSource {
 
     suspend fun addProduct(requestBody: RequestBody): Products
 
+    suspend fun addProductImage(requestBody: RequestBody, productID: String)
+
     suspend fun deleteProductByID(productID:String)
 
     suspend fun setInventoryLevel(requestBody: RequestBody)

@@ -29,6 +29,16 @@ interface ProductsService {
         "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
         "Content-Type: ${Keys.Content_Type}"
     )
+    @POST(Keys.PRODUCTS + "/{resource}/images.json")
+    suspend fun addProductImage(
+        @Body requestBody: RequestBody,
+        @Path("product_id") productID: String
+    ): Response<JsonObject>
+
+    @Headers(
+        "X-Shopify-Access-Token: ${Keys.Shopify_Access_Token}",
+        "Content-Type: ${Keys.Content_Type}"
+    )
     @DELETE("products/{productID}.json")
     suspend fun deleteProductByID(@Path("productID") productID: String): Response<JsonObject>
 

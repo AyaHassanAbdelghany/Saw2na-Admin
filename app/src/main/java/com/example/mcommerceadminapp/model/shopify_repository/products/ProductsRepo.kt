@@ -26,6 +26,9 @@ class ProductsRepo private constructor(private val source: IProductRemoteSource)
 
     suspend fun addProduct(products: Products):Products{
         return source.addProduct(getProductRequestBody(products))
+//        getProductRequestBody(products)
+//        return Products()
+
     }
 
     suspend fun deleteProductByID(productID:String){
