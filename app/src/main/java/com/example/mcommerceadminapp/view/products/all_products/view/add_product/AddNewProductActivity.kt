@@ -48,6 +48,10 @@ class AddNewProductActivity : AppCompatActivity() {
             }
         }
 
+        binding.backImage.setOnClickListener {
+            finish()
+        }
+
         binding.submitBtn.setOnClickListener {
             if (isValid()) {
                 val products = Products()
@@ -74,6 +78,7 @@ class AddNewProductActivity : AppCompatActivity() {
                 variant.price = binding.priceEditText.text.toString()
 
                 products.variants.add(variant)
+
 
                 viewModel.addProduct(products)
                 binding.loadingProgressBar.visibility = View.VISIBLE
