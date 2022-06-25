@@ -34,12 +34,8 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         val intent = intent.getStringExtra("product")
 
-        Log.e("Product Details : ", intent.toString())
-
         val gson = Gson()
         val product: Products = gson.fromJson(intent, Products::class.java)
-
-        Log.e("Product Details : ", product.toString())
 
         binding.toolbar.title = product.title
 
@@ -63,7 +59,7 @@ class ProductDetail : AppCompatActivity(), OnClickListener {
 
         val set = hashSetOf<String>()
         product.variants.forEach { color ->
-            set.add(color.option2!!)
+            color.option2?.let { set.add(it) }
         }
         colorAdapter.setColorList(set)
 

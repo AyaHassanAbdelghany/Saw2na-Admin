@@ -26,4 +26,12 @@
             @transition/change_image_transform</item>
 
     </style>
+
+    <style name="Theme.MCommerceAppAdmin.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/blue_dark</item>
+        <item name="colorControlActivated">@color/blue_dark</item>
+    </style>
+
 </resources>
