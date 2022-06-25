@@ -80,15 +80,16 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:enabled="false"
+            android:inputType="number"
+            android:paddingHorizontal="5dp"
             android:text="23.0"
             android:textColor="@color/black"
-            android:inputType="number"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/plus_bt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.65"
             app:layout_constraintStart_toEndOf="@id/quantity"
-            app:layout_constraintTop_toTopOf="@id/plus_bt"
-            app:layout_constraintBottom_toBottomOf="@id/plus_bt"/>
+            app:layout_constraintTop_toTopOf="@id/plus_bt" />
 
         <ImageButton
             android:id="@+id/plus_bt"
@@ -100,6 +101,7 @@
             android:visibility="visible"
             app:layout_constraintStart_toEndOf="@id/quantity_textView"
             app:layout_constraintTop_toTopOf="@id/quantity" />
+
         <ImageButton
             android:id="@+id/confirm_bt"
             android:layout_width="40dp"

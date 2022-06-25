@@ -90,7 +90,7 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
            .setCancelable(true)
            .setPositiveButton("OK") { dialog, id -> // get user input and set it to result
                // edit text
-               val code = input.getText().toString()
+               val code = input.getText().toString().replace(" ","")
                if (isConnected)
                discountCodeVM.createDiscountCode(idIntent, DiscountCodes(code = code))
 

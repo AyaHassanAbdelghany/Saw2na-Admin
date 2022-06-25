@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mcommerceadminapp.R
 import com.example.mcommerceadminapp.databinding.ItemInventoryChildBinding
 import com.example.mcommerceadminapp.pojo.products.Products
 
@@ -28,13 +29,17 @@ class InventoryChildAdapter (var context: Context, private var listener: Invento
 
         holder.binding.plusBt.setOnClickListener {
             holder.binding.quantityTextView.isEnabled = true
+            holder.binding.quantityTextView.setTextColor(context.resources.getColor(R.color.blue))
             holder.binding.plusBt.visibility = View.INVISIBLE
+            holder.binding.quantityTextView.isPressed = true
             holder.binding.confirmBt.visibility = View.VISIBLE
         }
 
         holder.binding.confirmBt.setOnClickListener {
             holder.binding.quantityTextView.isEnabled = false
             holder.binding.plusBt.visibility = View.VISIBLE
+            holder.binding.quantityTextView.setTextColor(context.resources.getColor(R.color.black))
+            holder.binding.quantityTextView.isPressed = false
             holder.binding.confirmBt.visibility = View.INVISIBLE
 
             listener.setInventoryLevel(currentItem.inventoryItemId!!,holder.binding.quantityTextView.text.toString().toInt())
