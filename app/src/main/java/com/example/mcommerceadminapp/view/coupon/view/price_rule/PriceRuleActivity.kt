@@ -1,5 +1,6 @@
 package com.example.mcommerceadminapp.view.coupon.view.price_rule
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +27,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
     private lateinit var couponVMFactory: PriceRuleViewModelFactory
     private lateinit var priceRuleAdapter :PriceRuleAdapter
     private var isConnected = false
+    private var priceList = ArrayList<PriceRules>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,14 +50,12 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                isConnected = true
                 couponVM.getAllPriceRules()
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.priceRuleRecycler.visibility = View.VISIBLE
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
@@ -72,6 +72,7 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
             if(it !=null) {
                 binding.loadingProgressBar.visibility = View.INVISIBLE
                 priceRuleAdapter.setData(it)
+                priceList = it
                 TransitionManager.beginDelayedTransition( binding.priceRuleRecycler, Slide())
                 binding.priceRuleRecycler.adapter = priceRuleAdapter
             }
@@ -119,14 +120,14 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         couponVM = ViewModelProvider(this, couponVMFactory)[PriceRuleViewModel::class.java]
 
     }
-    override fun onClick(id: String?,type:String) {
+    override fun <T>onClick(typeObject: T,type:String) {
+        val priceRule = typeObject as PriceRules
         if(type == "DELETE") {
-            if (isConnected)
-            couponVM.deletePriceRuleID(id.toString())
+           showDialog(priceRule)
         }
         else{
             val intent = Intent(this, DiscountCodeActivity::class.java)
-        intent.putExtra("PRICERULE_ID", id)
+        intent.putExtra("PRICERULE_ID", priceRule.id)
         startActivity(intent)
         }
 
@@ -145,6 +146,28 @@ class PriceRuleActivity : OnClickListner ,AppCompatActivity() {
         intent.putExtra("id",priceRule.id)
         startActivityForResult(intent,2)
     }
+
+
+    private fun showDialog(priceRules: PriceRules) {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+        alertDialog.setTitle("Confirmation")
+        alertDialog.setMessage("Are you sure you want to delete?")
+        alertDialog
+            .setCancelable(true)
+            .setPositiveButton("OK") { _, _ -> // get user input and set it to result
+                if (isConnected) {
+                    couponVM.deletePriceRuleID(priceRules.id.toString())
+                    priceList.remove(priceRules)
+                    priceRuleAdapter.setData(priceList)
+                }
+            }
+            .setNegativeButton(
+                "Cancel"
+            ) { dialog, _ -> dialog.cancel() }
+
+        alertDialog.show()
+    }
+
 }
 
 

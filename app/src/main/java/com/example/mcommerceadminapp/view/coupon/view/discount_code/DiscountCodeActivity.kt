@@ -27,9 +27,10 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
     private lateinit var binding: ActivityDiscountCodeBinding
     private lateinit var discountCodeVM: DiscountCodeViewModel
     private lateinit var discountCodeVMFactory: DiscountCodeViewModelFactory
-    private lateinit var discountCodeAdapter : DiscountCodeAdapter
-    private lateinit var idIntent :String
+    private lateinit var discountCodeAdapter: DiscountCodeAdapter
+    private lateinit var idIntent: String
     private var isConnected = false
+    private var codesList = ArrayList<DiscountCodes>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,30 +42,29 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
         init()
         idIntent = intent.getStringExtra("PRICERULE_ID").toString()
 
-        discountCodeVM.allDiscountCode.observe(this){
+        discountCodeVM.allDiscountCode.observe(this) {
             binding.loadingProgressBar.visibility = View.INVISIBLE
             discountCodeAdapter.setData(it)
-            TransitionManager.beginDelayedTransition( binding.discountCodeRecycler, Slide())
+            codesList = it
+            TransitionManager.beginDelayedTransition(binding.discountCodeRecycler, Slide())
             binding.discountCodeRecycler.adapter = discountCodeAdapter
         }
 
-        binding.addDiscountCodeButton.setOnClickListener{
+        binding.addDiscountCodeButton.setOnClickListener {
             showDialog()
         }
-        binding.backImage.setOnClickListener(){
+        binding.backImage.setOnClickListener() {
             finish()
         }
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 isConnected = true
                 discountCodeVM.getAllDiscountCode(idIntent)
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.discountCodeRecycler.visibility = View.VISIBLE
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
@@ -74,54 +74,83 @@ class DiscountCodeActivity : OnClickListner, AppCompatActivity() {
 
     }
 
-   private fun showDialog(){
+    private fun showDialog() {
 
-       val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this@DiscountCodeActivity)
-       alertDialog.setTitle("Add DiscountCode")
-       alertDialog.setMessage("Enter Code")
-       val input = EditText(this@DiscountCodeActivity)
-       val lp = LinearLayout.LayoutParams(
-           LinearLayout.LayoutParams.MATCH_PARENT,
-           LinearLayout.LayoutParams.MATCH_PARENT
-       )
-       input.layoutParams = lp
-       alertDialog.setView(input)
-       alertDialog
-           .setCancelable(true)
-           .setPositiveButton("OK") { dialog, id -> // get user input and set it to result
-               // edit text
-               val code = input.getText().toString().replace(" ","")
-               if (isConnected)
-               discountCodeVM.createDiscountCode(idIntent, DiscountCodes(code = code))
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this@DiscountCodeActivity)
+        alertDialog.setTitle("Add DiscountCode")
+        alertDialog.setMessage("Enter Code")
+        val input = EditText(this@DiscountCodeActivity)
+        val lp = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        input.layoutParams = lp
+        alertDialog.setView(input)
+        alertDialog
+            .setCancelable(true)
+            .setPositiveButton("OK") { dialog, id -> // get user input and set it to result
+                // edit text
+                val code = input.getText().toString().replace(" ", "")
+                if (isConnected)
+                    discountCodeVM.createDiscountCode(idIntent, DiscountCodes(code = code))
 
-           }
-           .setNegativeButton(
-               "Cancel"
-           ) { dialog, id -> dialog.cancel() }
+            }
+            .setNegativeButton(
+                "Cancel"
+            ) { dialog, id -> dialog.cancel() }
 
-       alertDialog.show()
-   }
+        alertDialog.show()
+    }
 
-    private fun init(){
-        discountCodeAdapter = DiscountCodeAdapter( this)
+    private fun init() {
+        discountCodeAdapter = DiscountCodeAdapter(this)
         binding.discountCodeRecycler.adapter = discountCodeAdapter
         discountCodeVMFactory = DiscountCodeViewModelFactory(
             CouponRepo.getInstance(CouponRemoteSource.getInstance()),
         )
-        discountCodeVM = ViewModelProvider(this, discountCodeVMFactory)[DiscountCodeViewModel::class.java]
+        discountCodeVM =
+            ViewModelProvider(this, discountCodeVMFactory)[DiscountCodeViewModel::class.java]
 
     }
 
-    override fun onClick(id: String?,type:String) {
-        if (isConnected)
-        discountCodeVM.deleteDiscountCodeID(this.idIntent , id.toString())
+    override fun <T> onClick(typeObject: T, type: String) {
+        val discountCode = typeObject as DiscountCodes
+        showDialog(discountCode)
     }
 
     override fun <T> onClickEdit(typeObject: T, type: String) {
         val discountCode = typeObject as DiscountCodes
         if (isConnected)
-        discountCodeVM.updateDiscountCode(this.idIntent, discountCode.id.toString(),discountCode)
+            discountCodeVM.updateDiscountCode(
+                this.idIntent,
+                discountCode.id.toString(),
+                discountCode
+            )
 
+    }
+
+
+    private fun showDialog(codes: DiscountCodes) {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+        alertDialog.setTitle("Confirmation")
+        alertDialog.setMessage("Are you sure you want to delete?")
+        alertDialog
+            .setCancelable(true)
+            .setPositiveButton("OK") { _, _ -> // get user input and set it to result
+                if (isConnected) {
+                    discountCodeVM.deleteDiscountCodeID(
+                        this@DiscountCodeActivity.idIntent,
+                        codes.id.toString()
+                    )
+                    codesList.remove(codes)
+                    discountCodeAdapter.setData(codesList)
+                }
+            }
+            .setNegativeButton(
+                "Cancel"
+            ) { dialog, _ -> dialog.cancel() }
+
+        alertDialog.show()
     }
 
 }

@@ -1,9 +1,12 @@
 package com.example.mcommerceadminapp.view.products.all_products.view
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +17,7 @@ import com.example.mcommerceadminapp.databinding.ActivityProductsBinding
 import com.example.mcommerceadminapp.model.remote_source.products.ProductsRemoteSource
 import com.example.mcommerceadminapp.model.shopify_repository.products.ProductsRepo
 import com.example.mcommerceadminapp.network.MyConnectivityManager
+import com.example.mcommerceadminapp.pojo.coupon.discount_code.DiscountCodes
 import com.example.mcommerceadminapp.pojo.products.Products
 import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsAdapter
 import com.example.mcommerceadminapp.view.products.all_products.view.adapter.ProductsCommunicator
@@ -27,7 +31,8 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
     private lateinit var binding: ActivityProductsBinding
     private lateinit var viewModel: ProductsViewModel
     private var isConnected = true
-    private lateinit var adapter:ProductsAdapter
+    private lateinit var adapter: ProductsAdapter
+    private var productList = ArrayList<Products>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +54,6 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 viewModel.getAllProduct()
                 isConnected = true
                 viewModel.getAllProduct()
@@ -57,7 +61,6 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewProducts.visibility = View.VISIBLE
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 isConnected = false
                 binding.noNetworkLayout.visibility = View.VISIBLE
                 binding.loadingProgressBar.visibility = View.INVISIBLE
@@ -81,10 +84,11 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
         viewModel.products.observe(this) {
             binding.loadingProgressBar.visibility = View.INVISIBLE
             adapter.setData(it)
+            productList = it
             TransitionManager.beginDelayedTransition(binding.recycleViewProducts, Slide())
         }
-         if (isConnected)
-           viewModel.getAllProduct()
+        if (isConnected)
+            viewModel.getAllProduct()
     }
 
     @Deprecated("Deprecated in Java")
@@ -95,25 +99,45 @@ class ProductsActivity : AppCompatActivity(), ProductsCommunicator {
 
             if (data != null) {
                 val res = data.getStringExtra("product")
-                val product = Gson().fromJson(res,Products::class.java)
+                val product = Gson().fromJson(res, Products::class.java)
                 Log.e("TAG", "onActivityResult: ${Gson().toJson(product)}")
-               // if (isConnected)
-                 //   viewModel.addProduct(product)
+                // if (isConnected)
+                //   viewModel.addProduct(product)
 
             }
         }
     }
 
 
-    override fun deleteProduct(productID: String) {
-        if (isConnected)
-            viewModel.deleteProductByID(productID)
+    override fun deleteProduct(product: Products) {
+        showDialog(product)
+
     }
 
     override fun showDetails(product: String) {
-       val intent = Intent(this,ProductDetail::class.java)
-        intent.putExtra("product",product)
+        val intent = Intent(this, ProductDetail::class.java)
+        intent.putExtra("product", product)
         startActivity(intent)
     }
 
+    private fun showDialog(product: Products) {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+        alertDialog.setTitle("Confirmation")
+        alertDialog.setMessage("Are you sure you want to delete?")
+        alertDialog
+            .setCancelable(true)
+            .setPositiveButton("OK") { _, _ -> // get user input and set it to result
+                if (isConnected) {
+                    viewModel.deleteProductByID(product.id.toString())
+                    productList.remove(product)
+                    adapter.setData(productList)
+                }
+
+            }
+            .setNegativeButton(
+                "Cancel"
+            ) { dialog, _ -> dialog.cancel() }
+
+        alertDialog.show()
+    }
 }

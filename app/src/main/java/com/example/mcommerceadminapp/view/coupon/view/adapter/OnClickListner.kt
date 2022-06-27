@@ -5,7 +5,7 @@ import com.example.mcommerceadminapp.pojo.coupon.price_rule.PriceRules
 
 interface OnClickListner {
 
-    fun onClick(id: String?,type:String)
+    fun <T>onClick(id: T,type:String)
     fun <T> onClickEdit(typeObject:T, type:String)
 
 }

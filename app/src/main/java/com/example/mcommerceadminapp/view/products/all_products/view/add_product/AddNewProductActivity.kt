@@ -1,11 +1,14 @@
 package com.example.mcommerceadminapp.view.products.all_products.view.add_product
 
+import android.R
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -31,11 +34,42 @@ class AddNewProductActivity : AppCompatActivity() {
     private lateinit var selectedImageBitmap: Bitmap
     private lateinit var image :ByteArray
     private lateinit var encoded: String
+    private val typesList = arrayListOf("T-SHIRTS","ACCESSORIES","SHOES")
+    private val sizeMap = HashMap<String,List<String>>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sizeMap["T-SHIRTS"] = arrayListOf("S","M","L","XL","XXL")
+        sizeMap["ACCESSORIES"] = arrayListOf("OS")
+        sizeMap["SHOES"] = arrayListOf("6","7","8","9","0","1","2")
+
+        val typeAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.simple_spinner_item, typesList)
+        typeAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+        binding.productTypeSpinner.adapter = typeAdapter
+
+        binding.productTypeSpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                val sizeList = sizeMap[typesList[position]]!!.toTypedArray()
+                val sizeAdapter: ArrayAdapter<String> =
+                    ArrayAdapter<String>(this@AddNewProductActivity, R.layout.simple_spinner_item,sizeList)
+                sizeAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                binding.productSizeSpinner.adapter = sizeAdapter
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+            }
+        }
 
         val factory =
             ProductsViewModelFactory(ProductsRepo.getInstance(ProductsRemoteSource.getInstance()))
@@ -57,7 +91,7 @@ class AddNewProductActivity : AppCompatActivity() {
                 val products = Products()
                 products.title = binding.titleEditText.text.toString()
                 products.vendor = binding.vendorEditText.text.toString()
-                products.productType = binding.productTypeEditText.text.toString()
+                products.productType = typesList[binding.productTypeSpinner.selectedItemPosition]
                 products.bodyHtml = binding.descEditText.text.toString()
 
                 val iv: ImageView = binding.productImage
@@ -73,7 +107,7 @@ class AddNewProductActivity : AppCompatActivity() {
 
                 products.variants = ArrayList()
                 val variant = Variants()
-                variant.option1 = binding.sizeEditText.text.toString()
+                variant.option1 = sizeMap[products.productType]!![binding.productSizeSpinner.selectedItemPosition]
                 variant.option2 = binding.vendorEditText.text.toString()
                 variant.price = binding.priceEditText.text.toString()
 
@@ -143,10 +177,7 @@ class AddNewProductActivity : AppCompatActivity() {
             binding.titleEditText.error = "not valid"
             res = false
         }
-        if(binding.productTypeEditText.text.toString().isEmpty()){
-            binding.productTypeEditText.error = "not valid"
-            res = false
-        }
+
         if(binding.vendorEditText.text.toString().isEmpty()){
             binding.vendorEditText.error = "not valid"
             res = false
@@ -155,10 +186,7 @@ class AddNewProductActivity : AppCompatActivity() {
             binding.descEditText.error = "not valid"
             res = false
         }
-        if(binding.sizeEditText.text.toString().isEmpty()){
-            binding.sizeEditText.error = "not valid"
-            res = false
-        }
+
         if(binding.colorEditText.text.toString().isEmpty()){
             binding.colorEditText.error = "not valid"
             res = false

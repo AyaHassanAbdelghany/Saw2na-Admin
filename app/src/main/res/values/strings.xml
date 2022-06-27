@@ -21,4 +21,10 @@
     <string name="searching_for_network_connection">Searching for network connection</string>
     <string name="review">Review</string>
     <string name="product_title">Product Title</string>
+    <string name="logout">Logout</string>
+    <string name="price_rule">Price Rule</string>
+    <string name="discount_codes">Discount Codes</string>
+    <string name="discount_code">Discount Code :</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
 </resources>

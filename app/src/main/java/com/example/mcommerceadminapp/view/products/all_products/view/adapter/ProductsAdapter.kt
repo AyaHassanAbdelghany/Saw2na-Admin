@@ -33,9 +33,7 @@ class ProductsAdapter(var context: Context, private var listener: ProductsCommun
         }
 
         holder.binding.deleteAddress.setOnClickListener {
-            listener.deleteProduct(currentItem.id.toString())
-            productsList.remove(currentItem)
-            notifyDataSetChanged()
+            listener.deleteProduct(currentItem)
         }
         holder.itemView.setOnClickListener {
             listener.showDetails(Gson().toJson(currentItem))

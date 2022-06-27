@@ -32,9 +32,7 @@ class DiscountCodeAdapter (var listner : OnClickListner) : RecyclerView.Adapter<
 
         }
         holder.binding.deleteImag.setOnClickListener {
-            listner.onClick(currentItem.id,"DELETE")
-            discountCodeList.remove(currentItem)
-            notifyDataSetChanged()
+            listner.onClick(currentItem,"DELETE")
         }
 
         holder.binding.editImag.setOnClickListener {

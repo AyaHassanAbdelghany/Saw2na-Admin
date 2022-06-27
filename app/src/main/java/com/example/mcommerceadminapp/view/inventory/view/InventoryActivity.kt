@@ -44,14 +44,12 @@ class InventoryActivity : AppCompatActivity() ,InventoryCommunicator{
         MyConnectivityManager.state.observe(this) {
 
             if (it) {
-                Toast.makeText(this, "Connection is restored", Toast.LENGTH_SHORT).show()
                 viewModel.getAllProduct()
                 binding.noNetworkLayout.visibility = View.INVISIBLE
                 TransitionManager.beginDelayedTransition( binding.noNetworkLayout, AutoTransition())
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.recycleViewInventory.visibility = View.VISIBLE
             } else {
-                Toast.makeText(this, "Connection is lost", Toast.LENGTH_SHORT).show()
                 binding.noNetworkLayout.visibility = View.VISIBLE
                 TransitionManager.beginDelayedTransition( binding.noNetworkLayout, AutoTransition())
                 binding.loadingProgressBar.visibility = View.INVISIBLE

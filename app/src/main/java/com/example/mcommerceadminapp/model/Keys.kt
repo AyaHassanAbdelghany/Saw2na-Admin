@@ -16,6 +16,8 @@ class Keys {
 
 
         const val Shopify_Access_Token = "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"
+
+
         const val Content_Type = "application/json"
 
         const val BASE_URL: String = "https://madalex2022-android.myshopify.com/admin/api/2022-01/"
